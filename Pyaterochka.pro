@@ -25,3 +25,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     ../../Desktop/Icon/Trash_bin.png
+
+RESOURCES += \
+    resources.qrc
