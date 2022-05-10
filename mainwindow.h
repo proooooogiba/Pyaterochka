@@ -9,8 +9,11 @@
 #include <QStyleFactory>
 #include <QMessageBox>
 #include <QIcon>
+#include <QFile>
+#include <QDir>
 
-#include <QHeaderView>
+
+//#include <QHeaderView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +26,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void AddToFolder(QString file_path, QString folder_name, QString file_name);
 
 private slots:
     void on_pushButton_clicked();
@@ -33,7 +37,8 @@ private slots:
 
     void on_pushButton_3_clicked();
     void slotFindFiles();
-
+    void slotSelectFile();
+    void slotDeleteItem();
 private:
     Ui::MainWindow *ui;
 };
