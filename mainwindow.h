@@ -12,6 +12,8 @@
 #include <QFile>
 #include <QDir>
 
+#include "fileprocessor.h"
+
 
 //#include <QHeaderView>
 

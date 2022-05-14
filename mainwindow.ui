@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Поиск файлов схожих по содержанию</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/media/images/icon_search.png</normaloff>:/media/images/icon_search.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>
@@ -284,6 +288,10 @@ background-color: rgb(164, 203, 255)</string>
     <property name="text">
      <string/>
     </property>
+    <property name="icon">
+     <iconset resource="resources.qrc">
+      <normaloff>:/media/images/Trash_bin.png</normaloff>:/media/images/Trash_bin.png</iconset>
+    </property>
    </widget>
    <widget class="QListWidget" name="listWidget">
     <property name="geometry">
@@ -317,6 +325,8 @@ background-color: rgb(164, 203, 255)</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

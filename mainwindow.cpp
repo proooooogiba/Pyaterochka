@@ -44,6 +44,21 @@ void MainWindow::on_pushButton_2_clicked()
     ui->lineEdit_2->setReadOnly(true);
     ui->lineEdit_2->setAlignment(Qt::AlignLeft);
     ui->lineEdit_2->setText(str);
+
+
+
+
+//    QString folder = ui->lineEdit->text();
+//    QFileInfoList list;
+//    FileProcessor::collectContents(QDir(folder), list);
+
+//    QList<QString> list_str;
+//    for (QFileInfo info : list)
+//    {
+//        list_str.append(info.fileName());
+//    }
+
+//    ui->listWidget->addItems(list_str);
 }
 
 
