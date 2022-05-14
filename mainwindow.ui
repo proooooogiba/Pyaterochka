@@ -231,7 +231,7 @@
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>380</y>
+      <y>400</y>
       <width>241</width>
       <height>61</height>
      </rect>
@@ -302,6 +302,9 @@ background-color: rgb(164, 203, 255)</string>
       <height>221</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
     </property>
@@ -310,6 +313,23 @@ background-color: rgb(164, 203, 255)</string>
     </property>
     <property name="midLineWidth">
      <number>0</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>350</y>
+      <width>242</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(197, 52, 78);
+border-color: rgb(197, 52, 78);</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

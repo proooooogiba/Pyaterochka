@@ -11,6 +11,8 @@
 #include <QIcon>
 #include <QFile>
 #include <QDir>
+#include <QProgressDialog>
+#include <QThread>
 
 #include "fileprocessor.h"
 
@@ -41,6 +43,11 @@ private slots:
     void slotFindFiles();
     void slotSelectFile();
     void slotDeleteItem();
+
+    void on_pushButton_6_clicked();
+
+signals:
+    void collect_contents();
 private:
     Ui::MainWindow *ui;
 };
