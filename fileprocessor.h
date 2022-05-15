@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QMessageBox>
+#include "algorithm.h"
 
 namespace FileProcessor
 {

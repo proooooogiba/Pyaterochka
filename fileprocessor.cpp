@@ -1,5 +1,4 @@
 #include "fileprocessor.h"
-//#include "algorithm.h"
 
 void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
 {
@@ -25,21 +24,38 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     QFile our_file(our_file_info.filePath());
     QFile another_file(another_file_info.filePath());
 
-    //read_file
+    our_file.open(QIODevice::ReadOnly | QFile::Truncate);
+    another_file.open(QIODevice::ReadOnly | QFile::Truncate);
 
-    QByteArray our_data, another_data;
-        if (!our_file.open(QIODevice::ReadOnly) || !another_file.open(QIODevice::ReadOnly))
-            //MessageBos::informatopn()
-            //QMessageBox::warning(this, "Уведомление", "Файл" + our_file_info.filePath() + "не смог считаться");
-            return false;
+    Algorithm compare;
 
-    our_data = our_file.readAll();
-    another_data = our_file.readAll();
-    //алгоритма Жакара и еще кого-то
-    //
-    if (false)
+    QTextStream in_our(&our_file);
+    QTextStream in_another(&another_file);
+
+    std::vector<QString> base_vec;
+    compare.fill_vec(in_our, base_vec);
+
+    in_our.seek(0);
+    std::set<QString> base_set;
+    compare.fill_set(in_our, base_set);
+
+    std::vector<QString> compare_vec;
+    compare.fill_vec(in_another, compare_vec);
+
+
+
+    in_another.seek(0);
+    std::set<QString> compare_set;
+    compare.fill_set(in_another, compare_set);
+
+    our_file.close();
+    another_file.close();
+
+    if (compare.Jacar_alg(base_set, compare_set))
     {
+
         return true;
     }
-    return true;
+
+    return false;
 }

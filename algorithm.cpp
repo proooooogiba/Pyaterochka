@@ -1,4 +1,5 @@
 #include "algorithm.h"
+#include <QDebug>
 
 bool Algorithm::check_familiar_words(const QString& a) {
     vector <QString> prepositions = { "безо", "близ",  "вместо", "из-за", "из-под", "кроме", "между",
@@ -23,10 +24,28 @@ bool Algorithm::check_familiar_words(const QString& a) {
 
 void Algorithm::delete_symbol(QString& a) {
 
-    vector <char16_t> symbols = {',', '.', '?', '!', ';', ':', ')', '(', '}', '{', '\"', '\''};
+    vector <QChar> symbols = {',', '.', '?', '!', ';', ':', ')', '(', '}', '{', '\"', '\'', '>', '<'};
+    bool flag = false;
+    for (int i =0; i < a.length(); ++i)
+    {
+        if (find(symbols.begin(), symbols.end(), a[i]) == symbols.end()) {
+            flag = true;
+            break;
+        }
+    }
 
-    while (find(symbols.begin(), symbols.end(),a[a.length() - 1]) != symbols.end()) {
-        a.truncate(a.length() -1);
+    if (!flag) {
+        return;
+    }
+    while (find(symbols.begin(), symbols.end(), a[a.length() - 1]) != symbols.end()) {
+        if (a.length() == 1) {
+            return;
+        }
+        a.truncate(a.length() - 1);
+    }
+
+    if (a.length() == 1) {
+        return;
     }
 
     while (find(symbols.begin(), symbols.end(),a[0]) != symbols.end()) {
@@ -34,36 +53,34 @@ void Algorithm::delete_symbol(QString& a) {
     }
 }
 
-bool Algorithm::clean_word(QString & tmp) {
+bool Algorithm::clean_word(QString &tmp) {
     delete_symbol(tmp);// убираем знаки препинания вначале и конце слова, если например: работа,  или .Цель
-    tolower(tmp, std::locale("Russian")); // приводим к нижнему регистру
-    tolower(tmp, std::locale("US"));
-
-    if (!check_familiar_words(tmp)) {
-        if (tmp.length() > 3) {
+    if (!check_familiar_words(tmp.toLower())) {
+        if (tmp.toLower().length() > 3) {
             return true;
         }
     }
     return false;
 }
 
-void Algorithm::fill_vec (QTextStream in, vector<QString>& key_words_vec) {
+void Algorithm::fill_vec (QTextStream& in, vector<QString>& key_words_vec) {
     while (!in.atEnd()) {
         QString tmp;
         in >> tmp;
         if (clean_word(tmp)) {
-            key_words_vec.push_back(tmp);
+            key_words_vec.push_back(tmp.toLower());
         }
     }
 }
 
 
-void Algorithm::fill_set(QTextStream in, set<QString>& set_of_keywords) {
+void Algorithm::fill_set(QTextStream& in, set<QString>& set_of_keywords) {
     while (!in.atEnd()) {
         QString tmp;
         in >> tmp;
         if (clean_word(tmp)) {
-        set_of_keywords.insert(tmp);
+            //qDebug() << tmp.toLower();
+            set_of_keywords.insert(tmp.toLower());
         }
     }
 }
@@ -77,14 +94,17 @@ bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
         std::back_inserter(dest1));
     std::set_union(A.begin(), A.end(),
         B.begin(), B.end(), std::back_inserter(dest2));
-
-    if ((dest1.size() / dest2.size()) > 0,1) {
+    //qDebug нужен для ыввода значений коэффицентов
+    //qDebug() << dest1.size() << '\n' << dest2.size();
+    double coefficent = (double)dest1.size() / dest2.size();
+    qDebug() << coefficent;
+    if ((coefficent) > 0.07) {
         return true;
     }
-
     return false;
 }
 
+//Сходство Шингла
 bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B) {
     set <QString> set_A;
     set <QString> set_B;

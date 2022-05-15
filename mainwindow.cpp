@@ -63,17 +63,27 @@ void MainWindow::slotFindFiles()
     {
         return;
     }
-    //здесь будет поисковый алгоритм
     QDir search_directory(ui->lineEdit->text());
     QFileInfoList file_list;
-    FileProcessor::collectContents(search_directory, file_list);
 
+    //поисковый алгоритм
+    FileProcessor::collectContents(search_directory, file_list);
     QFileInfo our_file(ui->lineEdit_2->text());
 
+
+    QProgressDialog progress("Формирование папки", "Прервать формирование", 0,  file_list.size(), this);
+    progress.setWindowModality(Qt::WindowModal);
+    progress.setWindowTitle("Окно прогресса");
     for (int i = 0; i < file_list.size(); ++i) {
+        progress.setValue(i);
         if (FileProcessor::compare_files(our_file, file_list.at(i))) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }
+    }
+    if (progress.wasCanceled()) {
+        QMessageBox::warning(this, "Ошибка", "Что-то пошло не так - процесс был прерван");
+    } else {
+        QMessageBox::information(this, "Уведомление", "Алгоритм успешно нашел схожие файлы");
     }
 
 }

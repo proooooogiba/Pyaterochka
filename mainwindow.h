@@ -13,6 +13,7 @@
 #include <QDir>
 #include <QProgressDialog>
 #include <QThread>
+#include <QTextStream>
 
 #include "fileprocessor.h"
 

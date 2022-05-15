@@ -332,8 +332,8 @@ border-color: rgb(197, 52, 78);</string>
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>images/icon_reaload.png</normaloff>images/icon_reaload.png</iconset>
+     <iconset resource="resources.qrc">
+      <normaloff>:/media/images/icon_reaload.png</normaloff>:/media/images/icon_reaload.png</iconset>
     </property>
    </widget>
   </widget>
