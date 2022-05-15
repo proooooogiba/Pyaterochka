@@ -6,19 +6,14 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    //TO DO: изменить иконку приложения
     ui->setupUi(this);
     ui->listWidget->sizeHintForColumn(30);
 
     ui->pushButton_5->setIcon(QIcon("C:/Users/Komp/Desktop/Icon/Trash_bin.png"));
-    //ui->pushButton_6->
-
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->listWidget, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectFile()));
     connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(slotDeleteItem()));
-
-    //connect(, SIGNAL(collect_contents()), this, SLOT(collectContents(QDir folder, QFileInfoList &files)));
 }
 
 
@@ -73,11 +68,14 @@ void MainWindow::slotFindFiles()
     QFileInfoList file_list;
     FileProcessor::collectContents(search_directory, file_list);
 
+    QFileInfo our_file(ui->lineEdit_2->text());
+
     for (int i = 0; i < file_list.size(); ++i) {
-        if (file_list.at(i).suffix() == "txt") {
-          ui->listWidget->addItem(file_list.at(i).filePath());
+        if (FileProcessor::compare_files(our_file, file_list.at(i))) {
+            ui->listWidget->addItem(file_list.at(i).filePath());
         }
     }
+
 }
 
 
