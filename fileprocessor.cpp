@@ -1,4 +1,5 @@
 #include "fileprocessor.h"
+//#include "algorithm.h"
 
 void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
 {

@@ -1,12 +1,12 @@
 #include "algorithm.h"
 
-bool Algorithm::check_familiar_words(const icu::UnicodeString& a) {
-    vector <icu::UnicodeString> prepositions = { "безо", "близ",  "вместо", "из-за", "из-под", "кроме", "между",
+bool Algorithm::check_familiar_words(const QString& a) {
+    vector <QString> prepositions = { "безо", "близ",  "вместо", "из-за", "из-под", "кроме", "между",
                                     "перед", "передо","пред", "пред", "подо", "ради",  "сквозь", "среди", "через", "чрез"};
     if (find(prepositions.begin(), prepositions.end(),a) != prepositions.end()) {
         return true;
     }
-    vector <icu::UnicodeString> unions = {"вдобавок", "именно", "также", "благодаря", "тому", "благо", "буде", "будто",
+    vector <QString> unions = {"вдобавок", "именно", "также", "благодаря", "тому", "благо", "буде", "будто",
                                     "если", "из-за", "дабы", "даже", "едва", "лишь", "ежели", "затем",
                                     "зато", "зачем", "значит", "следовательно", "тогда", "кабы", "как-то",
                                     "коли", "либо", "ради", "нежели", "только", "невзирая", "независимо", "несмотря", "однако",
@@ -21,7 +21,7 @@ bool Algorithm::check_familiar_words(const icu::UnicodeString& a) {
     return false;
 }
 
-void Algorithm::delete_symbol(icu::UnicodeString& a) {
+void Algorithm::delete_symbol(QString& a) {
 
     vector <char16_t> symbols = {',', '.', '?', '!', ';', ':', ')', '(', '}', '{', '\"', '\''};
 
@@ -34,10 +34,10 @@ void Algorithm::delete_symbol(icu::UnicodeString& a) {
     }
 }
 
-bool Algorithm::clean_word(icu::UnicodeString & tmp) {
+bool Algorithm::clean_word(QString & tmp) {
     delete_symbol(tmp);// убираем знаки препинания вначале и конце слова, если например: работа,  или .Цель
-    tmp.toLower(icu::Locale("Russian")); // приводим к нижнему регистру
-    tmp.toLower(icu::Locale("US"));
+    tolower(tmp, std::locale("Russian")); // приводим к нижнему регистру
+    tolower(tmp, std::locale("US"));
 
     if (!check_familiar_words(tmp)) {
         if (tmp.length() > 3) {
@@ -47,20 +47,20 @@ bool Algorithm::clean_word(icu::UnicodeString & tmp) {
     return false;
 }
 
-void Algorithm::fill_vec (ifstream in, vector <icu::UnicodeString>& key_words_vec) {
-    while (!in.eof()) {
-        icu::UnicodeString tmp;
+void Algorithm::fill_vec (QTextStream in, vector<QString>& key_words_vec) {
+    while (!in.atEnd()) {
+        QString tmp;
         in >> tmp;
         if (clean_word(tmp)) {
-        key_words_vec.push_back(tmp);
+            key_words_vec.push_back(tmp);
         }
     }
 }
 
 
-void Algorithm::fill_set(ifstream in, set<icu::UnicodeString>& set_of_keywords) {
-    while (!in.eof()) {
-        icu::UnicodeString tmp;
+void Algorithm::fill_set(QTextStream in, set<QString>& set_of_keywords) {
+    while (!in.atEnd()) {
+        QString tmp;
         in >> tmp;
         if (clean_word(tmp)) {
         set_of_keywords.insert(tmp);
@@ -69,32 +69,32 @@ void Algorithm::fill_set(ifstream in, set<icu::UnicodeString>& set_of_keywords) 
 }
 
 //Сходство Жаккара
-bool Algorithm::Jacar_alg(set <icu::UnicodeString>& A, set <icu::UnicodeString>& B) {
-    vector <icu::UnicodeString> dest1;
-    vector <icu::UnicodeString> dest2;
+bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
+    vector <QString> dest1;
+    vector <QString> dest2;
 
     std::set_intersection(A.begin(), A.end(), B.begin(), B.end(),
         std::back_inserter(dest1));
     std::set_union(A.begin(), A.end(),
         B.begin(), B.end(), std::back_inserter(dest2));
 
-    if (dest1.size() / dest2.size() > 0,1) {
+    if ((dest1.size() / dest2.size()) > 0,1) {
         return true;
     }
 
     return false;
 }
 
-bool Algorithm::Shingl_alg(vector <icu::UnicodeString>& A, vector <icu::UnicodeString>& B) {
-    set <icu::UnicodeString> set_A;
-    set <icu::UnicodeString> set_B;
+bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B) {
+    set <QString> set_A;
+    set <QString> set_B;
     for (size_t i = 0; i < A.size() - 1; ++i) {
-        icu::UnicodeString tmp;
+        QString tmp;
         tmp+= A[i] + ' ' + A[i + 1];
         set_A.insert(tmp);
     }
     for (size_t i = 0; i < B.size() - 1; ++i) {
-        icu::UnicodeString tmp;
+        QString tmp;
         tmp+= B[i] + ' ' + B[i + 1];
         set_B.insert(tmp);
     }

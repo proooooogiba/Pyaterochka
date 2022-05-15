@@ -9,23 +9,28 @@
 #include <map>
 #include <set>
 #include <iterator>
-#include "unicode/utypes.h"
-#include "unicode/coll.h"
-#include "unicode/unistr.h"
-#include "unicode/ustream.h"
+#include <QString>
+#include <locale>
+#include <QTextStream>
+
+//#include "unicode/utypes.h"
+//#include "unicode/coll.h"
+//#include "unicode/unistr.h"
+//#include "unicode/ustream.h"
 
 using namespace std;
 
 
 class Algorithm
 {
-    bool check_familiar_words(const icu::UnicodeString& a);
-    void delete_symbol(icu::UnicodeString& a);
-    bool clean_word(icu::UnicodeString & tmp);
-    void fill_vec (ifstream in, vector <icu::UnicodeString>& key_words_vec);
-    void fill_set(ifstream in, set<icu::UnicodeString>& set_of_keywords);
-    bool Jacar_alg(set <icu::UnicodeString>& A, set <icu::UnicodeString>& B);
-    bool Shingl_alg(vector <icu::UnicodeString>& A, vector <icu::UnicodeString>& B);
+    bool check_familiar_words(const QString& a);
+    void delete_symbol(QString& a);
+    bool clean_word(QString & tmp);
+    void fill_vec(QTextStream in, vector <QString>& key_words_vec);
+
+    void fill_set(QTextStream in, set<QString>& set_of_keywords);
+    bool Jacar_alg(set<QString>& A, set<QString>& B);
+    bool Shingl_alg(vector<QString>& A, vector<QString>& B);
 
 };
 
