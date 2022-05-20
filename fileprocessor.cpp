@@ -31,6 +31,7 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
 
     QTextStream in_our(&our_file);
     QTextStream in_another(&another_file);
+    //in_our --> in_our_lemmitize
 
     std::vector<QString> base_vec;
     compare.fill_vec(in_our, base_vec);

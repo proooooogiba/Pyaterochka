@@ -1,6 +1,10 @@
 #include "algorithm.h"
 #include <QDebug>
 
+Algorithm::Algorithm(): lem() {
+    lem.initialize();
+}
+
 bool Algorithm::check_familiar_words(const QString& a) {
     vector <QString> prepositions = { "безо", "близ",  "вместо", "из-за", "из-под", "кроме", "между",
                                     "перед", "передо","пред", "пред", "подо", "ради",  "сквозь", "среди", "через", "чрез"};
@@ -64,11 +68,12 @@ bool Algorithm::clean_word(QString &tmp) {
 }
 
 void Algorithm::fill_vec (QTextStream& in, vector<QString>& key_words_vec) {
+    //подключаешься к экзешнику
     while (!in.atEnd()) {
         QString tmp;
         in >> tmp;
         if (clean_word(tmp)) {
-            key_words_vec.push_back(tmp.toLower());
+            key_words_vec.emplace_back(lem.lemmatize(tmp.toStdString()));
         }
     }
 }
@@ -79,8 +84,7 @@ void Algorithm::fill_set(QTextStream& in, set<QString>& set_of_keywords) {
         QString tmp;
         in >> tmp;
         if (clean_word(tmp)) {
-            //qDebug() << tmp.toLower();
-            set_of_keywords.insert(tmp.toLower());
+            set_of_keywords.emplace(lem.lemmatize(tmp.toStdString()));
         }
     }
 }
