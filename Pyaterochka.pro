@@ -11,12 +11,15 @@ CONFIG += c++11
 SOURCES += \
     algorithm.cpp \
     fileprocessor.cpp \
+    lemmatizator.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     algorithm.h \
     fileprocessor.h \
+    json.hpp \
+    lemmatizator.h \
     mainwindow.h
 
 FORMS += \
