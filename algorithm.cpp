@@ -97,7 +97,7 @@ bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
     //qDebug нужен для ыввода значений коэффицентов
     //qDebug() << dest1.size() << '\n' << dest2.size();
     double coefficent = (double)dest1.size() / dest2.size();
-    qDebug() << coefficent;
+    qDebug() << "coef: " << coefficent;
     if ((coefficent) > 0.07) {
         return true;
     }

@@ -37,7 +37,7 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     QString str;
-    str = QFileDialog::getOpenFileName(this, "Выбрать файл", "C:\\",
+    str = QFileDialog::getOpenFileName(this, "Выбрать файл", ui->lineEdit->text(),
                                        "Текстовые файлы (*.txt);; Формат PDF (*.pdf);; All Files (*.*)");
     ui->lineEdit_2->setReadOnly(true);
     ui->lineEdit_2->setAlignment(Qt::AlignLeft);

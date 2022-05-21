@@ -2,17 +2,18 @@
 #define LEMMATIZATOR_H
 
 #include "json.hpp"
-#include <unistd.h>
 #include <iostream>
-#include <fcntl.h>
 #include <thread>
+#include <QStringList>
+#include <QProcess>
+#include <QDebug>
 
 using json = nlohmann::json;
 
 #define LOGGER qDebug()
 
 class Lemmatizator{
-    static constexpr std::string_view win_lem = "mystem_win.exe";
+    static constexpr std::string_view win_lem = "mystem_windows.exe";
     static constexpr std::string_view linux_lem = "mystem_linux";
 
 #if defined(_WIN32) || defined (__WIN32)
@@ -26,11 +27,9 @@ class Lemmatizator{
 #endif
 //   public:
     //TODO: добавить возможность убирать/добавлять аргументы
-    std::vector<const char *> stem_args = { current_lem.data(), "--format=json", NULL };
-    int to_stem[2];
-    int from_stem[2];
+    QStringList stem_args = { "--format=json", NULL };
+    QProcess stem;
     bool initialized = false;
-    int stem_pid = -1;
 
   public:
     Lemmatizator();
@@ -41,13 +40,11 @@ class Lemmatizator{
 
     bool initialize();
 
-    std::string lemmatize(const std::string& content);
+    QString lemmatize(const QString& content);
 
   private:
 
-    std::string parseRecivedContent(const std::string& content);
-
-    void configFromStemOut();
+    QString parseRecivedContent(const QString& content);
 
     // class UninitializedLem : std::exception {}
 };

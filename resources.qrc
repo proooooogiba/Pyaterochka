@@ -4,4 +4,5 @@
         <file>images/icon_search.png</file>
         <file>images/icon_reaload.png</file>
     </qresource>
+    <qresource prefix="/programs"/>
 </RCC>
