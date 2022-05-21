@@ -6,13 +6,13 @@
 #include <thread>
 
 Lemmatizator::Lemmatizator() {
-    QString program = R"(C:\projects\build-untitled6-Desktop_Qt_6_3_0_MSVC2019_64bit-Debug\debug\mystem_windows.exe)";
+    QString program = "/home/andrey/projects/mystem_linux";
     stem.setProgram(program);
-    stem.setArguments(QStringList() << "--format=json" << "-e" <<  "cp866");
+    stem.setArguments(QStringList() << "--format=json");
 }
 
 Lemmatizator::~Lemmatizator() {
-
+    stem.close();
 }
 
 bool Lemmatizator::is_initialized() {
@@ -23,6 +23,7 @@ bool Lemmatizator::initialize() {
     stem.start();
     initialized = stem.waitForStarted();
     LOGGER << "stem started: " << initialized;
+    LOGGER << "error: " << stem.errorString();
     return initialized;
 }
 
@@ -35,19 +36,20 @@ QString Lemmatizator::lemmatize(const QString& content) {
     QString return_content{};
 //    return_content.resize(content.size() * 2);
 
-    LOGGER << "start write to stem";
+//    LOGGER << "start write to stem";
 
 //    stem.write(qPrintable(content.toLocal8Bit()));
-    stem.write(content.toLocal8Bit().data());
+//    stem.write(content.toLocal8Bit().data());
+    stem.write(content.toStdString().c_str());
 //    stem.write("привет\n");
-    LOGGER << content;
-    LOGGER << content.size();
+//    LOGGER << content;
+//    LOGGER << content.size();
     stem.write("\r\n");
     stem.waitForBytesWritten();
 
-    LOGGER << "end write to stem";
+//    LOGGER << "end write to stem";
 
-    LOGGER << "start read from stem";
+//    LOGGER << "start read from stem";
 
     QFile out("D:\\out.txt");
     out.open(QFile::WriteOnly | QFile::Text);
@@ -55,17 +57,19 @@ QString Lemmatizator::lemmatize(const QString& content) {
 
 //    while (!stem.canReadLine()) {
 //        LOGGER << "wait";
-        using std::chrono_literals::operator""ms;
-        std::this_thread::sleep_for(500ms);
+//        using std::chrono_literals::operator""ms;
+//        std::this_thread::sleep_for(10ms);
 //    }
-    LOGGER << "ready read: " << stem.waitForReadyRead();
+//    LOGGER << "ready read: " <<
+      stem.waitForReadyRead();
 
-    QByteArray arr = stem.readAll();
-    return_content.append(QString::fromLocal8Bit(arr));
+    QByteArray arr = stem.readLine();
+    return_content.append(arr);
+//    return_content.append(QString::fromLocal8Bit(arr));
 
-    LOGGER << "array: " << arr;
-    LOGGER << "array length: " << arr.size();
-    LOGGER << "read from stem: " << return_content;
+//    LOGGER << "array: " << arr;
+//    LOGGER << "array length: " << arr.size();
+//    LOGGER << "read from stem: " << return_content;
 
     out_stream.flush();
     out.close();
@@ -81,7 +85,9 @@ QString Lemmatizator::lemmatize(const QString& content) {
 
     return_content = return_content.trimmed();
 
-    LOGGER << "end read from stem";
+//    LOGGER << "end read from stem";
+
+
     // LOGGER << "content: <" << content.data() << ">  size=" << content.size() << "\n";
     // LOGGER << "sended: " << w << "   recived: " << total_read << "\n";
     // LOGGER << "recived content data: " << return_content.data() << "\n";
@@ -93,7 +99,7 @@ QString Lemmatizator::lemmatize(const QString& content) {
 
 QString Lemmatizator::parseRecivedContent(const QString& content) {
 //    return content;
-    LOGGER << "start parsing";
+//    LOGGER << "start parsing";
 
 //    QFile out("D:\\out.txt");
 //    out.open(QFile::WriteOnly | QFile::Text);
@@ -115,10 +121,10 @@ QString Lemmatizator::parseRecivedContent(const QString& content) {
 //    }
 
     std::string return_content{};
-    LOGGER << "still parsing";
+//    LOGGER << "still parsing";
 
     for (auto& analysis_obj : json_content) {
-        LOGGER << analysis_obj.dump().c_str();
+//        LOGGER << analysis_obj.dump().c_str();
         if (analysis_obj["analysis"].size() != 0) {
             std::string lex = analysis_obj["analysis"][0]["lex"];
             return_content.append(lex);
@@ -133,6 +139,6 @@ QString Lemmatizator::parseRecivedContent(const QString& content) {
 //        return_content.resize(return_content.size() - 1);
 //    }
 
-    LOGGER << "end parsing";
+//    LOGGER << "end parsing";
     return QString(return_content.data());
 }

@@ -25,8 +25,8 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     QFile our_file(our_file_info.filePath());
     QFile another_file(another_file_info.filePath());
 
-    our_file.open(QIODevice::ReadOnly | QFile::Truncate);
-    another_file.open(QIODevice::ReadOnly | QFile::Truncate);
+    our_file.open(QIODevice::ReadOnly);
+    another_file.open(QIODevice::ReadOnly);
 
     Algorithm compare;
 
@@ -60,7 +60,7 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     qDebug() << "lem started successfully: " << success;
 
     for (QString word : compare_set) {
-        qDebug() << "word: " << word;
+//        qDebug() << "word: " << word;
         compare_set_new.insert(lem.lemmatize(word));
     }
     qDebug() << "compare_set processed";

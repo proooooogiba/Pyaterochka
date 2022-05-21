@@ -98,7 +98,7 @@ bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
     //qDebug() << dest1.size() << '\n' << dest2.size();
     double coefficent = (double)dest1.size() / dest2.size();
     qDebug() << "coef: " << coefficent;
-    if ((coefficent) > 0.07) {
+    if ((coefficent) > 0.15) {
         return true;
     }
     return false;
