@@ -70,8 +70,7 @@ void MainWindow::slotFindFiles()
     FileProcessor::collectContents(search_directory, file_list);
     QFileInfo our_file(ui->lineEdit_2->text());
 
-
-    QProgressDialog progress("Формирование папки", "Прервать формирование", 0,  file_list.size(), this);
+    QProgressDialog progress("Поиск схожих по смыслу файлов", "Прервать поиск", 0,  file_list.size(), this);
     progress.setWindowModality(Qt::WindowModal);
     progress.setWindowTitle("Окно прогресса");
     for (int i = 0; i < file_list.size(); ++i) {
