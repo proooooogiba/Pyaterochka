@@ -19,7 +19,7 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
     }
 }
 
-bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info)
+bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent)
 {
     QFile our_file(our_file_info.filePath());
     QFile another_file(another_file_info.filePath());
@@ -42,8 +42,6 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     std::vector<QString> compare_vec;
     compare.fill_vec(in_another, compare_vec);
 
-
-
     in_another.seek(0);
     std::set<QString> compare_set;
     compare.fill_set(in_another, compare_set);
@@ -51,7 +49,7 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     our_file.close();
     another_file.close();
 
-    if (compare.Jacar_alg(base_set, compare_set))
+    if (compare.Jacar_alg(base_set, compare_set, percent))
     {
 
         return true;

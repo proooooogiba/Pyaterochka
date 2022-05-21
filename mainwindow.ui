@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
-    <height>537</height>
+    <width>739</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -257,7 +257,7 @@ background-color: rgb(164, 203, 255)</string>
      <string notr="true">background-color: rgb(149, 214, 142);</string>
     </property>
     <property name="text">
-     <string>найдено файлов</string>
+     <string>Найдено файлов:</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -336,13 +336,52 @@ border-color: rgb(197, 52, 78);</string>
       <normaloff>:/media/images/icon_reaload.png</normaloff>:/media/images/icon_reaload.png</iconset>
     </property>
    </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>440</y>
+      <width>351</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>480</y>
+      <width>311</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>70</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>740</width>
+     <width>739</width>
      <height>26</height>
     </rect>
    </property>
@@ -352,5 +391,22 @@ border-color: rgb(197, 52, 78);</string>
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>progressBar</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>233</x>
+     <y>523</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>471</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

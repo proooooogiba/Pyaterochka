@@ -30,7 +30,7 @@ public:
     void fill_vec(QTextStream& in, vector <QString>& key_words_vec);
 
     void fill_set(QTextStream& in, set<QString>& set_of_keywords);
-    bool Jacar_alg(set<QString>& A, set<QString>& B);
+    bool Jacar_alg(set<QString>& A, set<QString>& B, int percent);
     bool Shingl_alg(vector<QString>& A, vector<QString>& B);
 
 };
