@@ -76,6 +76,8 @@ void MainWindow::slotFindFiles()
     progress.setWindowTitle("Окно прогресса");
     for (int i = 0; i < file_list.size(); ++i) {
         progress.setValue(i);
+        qDebug() << "<<<=====================>>>";
+        qDebug() << "proccessed files: <" << our_file.fileName() << "> and  <" <<  file_list.at(i).fileName() << ">";
         if (FileProcessor::compare_files(our_file, file_list.at(i))) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }

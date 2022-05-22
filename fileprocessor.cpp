@@ -1,6 +1,8 @@
 #include "fileprocessor.h"
 #include "lemmatizator.h"
 
+#include <QCoreApplication>
+
 void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
 {
     for (QFileInfo info :
@@ -25,56 +27,35 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     QFile our_file(our_file_info.filePath());
     QFile another_file(another_file_info.filePath());
 
-    our_file.open(QIODevice::ReadOnly | QFile::Truncate);
-    another_file.open(QIODevice::ReadOnly | QFile::Truncate);
+    our_file.open(QIODevice::ReadOnly);
+    another_file.open(QIODevice::ReadOnly);
+
+    Lemmatizator lem;
+    bool success = lem.initialize();
+    qDebug() << "lematizator started successfully: " << success;
+//    qDebug() << QCoreApplication::applicationDirPath();
 
     Algorithm compare;
-
-    QTextStream in_our(&our_file);
-    QTextStream in_another(&another_file);
 
 //    std::vector<QString> base_vec;
 //    compare.fill_vec(in_our, base_vec);
 
-    in_our.seek(0);
     std::set<QString> base_set;
-    compare.fill_set(in_our, base_set);
+    compare.fill_set_lemmatize(our_file, base_set, lem);
 
 //    std::vector<QString> compare_vec;
 //    compare.fill_vec(in_another, compare_vec);
 
-    in_another.seek(0);
     std::set<QString> compare_set;
-    compare.fill_set(in_another, compare_set);
+    compare.fill_set_lemmatize(another_file, compare_set, lem);
 
     our_file.close();
     another_file.close();
 
+    qDebug() << "started Jacar alg";
+    bool result = compare.Jacar_alg(base_set, compare_set);
+    qDebug() << "end of Jacar alg, result: " << result;
+    qDebug() << ">>>=====================<<<\n\n";
 
-    std::set<QString> compare_set_new;
-    std::set<QString> base_set_new;
-
-    Lemmatizator lem;
-
-    bool success = lem.initialize();
-    qDebug() << "lem started successfully: " << success;
-
-    for (QString word : compare_set) {
-        qDebug() << "word: " << word;
-        compare_set_new.insert(lem.lemmatize(word));
-    }
-    qDebug() << "compare_set processed";
-
-    for (QString word : base_set) {
-        base_set_new.insert(lem.lemmatize(word));
-    }
-    qDebug() << "base_set processed";
-
-    qDebug() << "start Jacar alg";
-    if (compare.Jacar_alg(base_set_new, compare_set_new))
-    {
-        return true;
-    }
-
-    return false;
+    return result;
 }

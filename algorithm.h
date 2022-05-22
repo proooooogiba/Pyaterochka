@@ -1,6 +1,7 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 
+#include "lemmatizator.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,6 +13,7 @@
 #include <QString>
 #include <locale>
 #include <QTextStream>
+#include <QFile>
 
 //#include "unicode/utypes.h"
 //#include "unicode/coll.h"
@@ -30,6 +32,7 @@ public:
     void fill_vec(QTextStream& in, vector <QString>& key_words_vec);
 
     void fill_set(QTextStream& in, set<QString>& set_of_keywords);
+    void fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lemmatizator& lem);
     bool Jacar_alg(set<QString>& A, set<QString>& B);
     bool Shingl_alg(vector<QString>& A, vector<QString>& B);
 

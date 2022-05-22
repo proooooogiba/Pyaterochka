@@ -1,5 +1,7 @@
 #include "algorithm.h"
+#include "lemmatizator.h"
 #include <QDebug>
+#include <QFile>
 
 bool Algorithm::check_familiar_words(const QString& a) {
     vector <QString> prepositions = { "безо", "близ",  "вместо", "из-за", "из-под", "кроме", "между",
@@ -85,6 +87,14 @@ void Algorithm::fill_set(QTextStream& in, set<QString>& set_of_keywords) {
     }
 }
 
+void Algorithm::fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lemmatizator& lem) {
+    QByteArray bytes = in.readAll();
+    QString lemmatized_text = lem.lemmatizeb(bytes);
+    for (QString word : lemmatized_text.split(" ")) {
+        set_of_keywords.insert(word);
+    }
+}
+
 //Сходство Жаккара
 bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
     vector <QString> dest1;
@@ -98,7 +108,7 @@ bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
     //qDebug() << dest1.size() << '\n' << dest2.size();
     double coefficent = (double)dest1.size() / dest2.size();
     qDebug() << "coef: " << coefficent;
-    if ((coefficent) > 0.07) {
+    if ((coefficent) > 0.15) {
         return true;
     }
     return false;
