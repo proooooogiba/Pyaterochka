@@ -6,29 +6,68 @@
 #include <thread>
 #include <QDir>
 #include <QCoreApplication>
+#include <QDirIterator>
 
 Lemmatizator::Lemmatizator() {
-    QString program = current_lem;
-    if (QDir(QCoreApplication::applicationDirPath()).exists(current_lem)) {
-        program = QDir(QCoreApplication::applicationDirPath() + current_lem).absolutePath();
-    } else if (QDir("./").exists(current_lem)) {
-        program = QDir(QString("./") + current_lem).absolutePath();
-    } else if (QDir("../").exists(current_lem)) {
-        program = QDir(QString("../") + current_lem).absolutePath();
-    } else if (QDir("../../").exists(current_lem)) {
-        program = QDir(QString("../../") + current_lem).absolutePath();
-    } else {
+    QString program = find_lem();
+    if (program == QString{""}) {
+        qDebug() << "can not find lemmatizator =(";
         throw std::exception("lemmatizator not found");
+    } else {
+        qDebug() << "lemmatizator found: " << program;
     }
-
-//    program = R"(C:\projects\build-untitled6-Desktop_Qt_6_3_0_MSVC2019_64bit-Debug\debug\mystem_windows.exe)";
     stem.setProgram(program);
-//    stem.setArguments(QStringList() << "--format=json" << "-e" <<  "cp866");
     stem.setArguments(QStringList() << "--format=json");
 }
 
 Lemmatizator::~Lemmatizator() {
     stem.close();
+}
+
+QString Lemmatizator::find_lem(const QString where) {
+    int max_current_processed = 3000;
+    int max_parent_processed = 10000;
+    QString program = current_lem;
+    QDir current_path(where);
+
+    int processed = 0;
+    QDirIterator it(current_path.absolutePath(), QDir::Files, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        QFileInfo info = it.nextFileInfo();
+        if (info.fileName() == program) {
+            program = info.absoluteFilePath();
+            break;
+        }
+        ++processed;
+        if (processed > max_current_processed) {
+            break;
+        }
+    }
+
+    if (program != QString(current_lem)) {
+        return program;
+    }
+
+    current_path.cdUp();
+    processed = 0;
+    QDirIterator it_parent(current_path.absolutePath(), QDir::Files, QDirIterator::Subdirectories);
+    while (it_parent.hasNext()) {
+        QFileInfo info = it_parent.nextFileInfo();
+        if (info.fileName() == program) {
+            program = info.absoluteFilePath();
+            break;
+        }
+        ++processed;
+        if (processed > max_parent_processed) {
+            break;
+        }
+    }
+
+    if (program != QString(current_lem)) {
+        return program;
+    }
+
+    return QString{""};
 }
 
 bool Lemmatizator::is_initialized() {

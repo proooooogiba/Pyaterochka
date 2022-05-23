@@ -48,6 +48,8 @@ class Lemmatizator{
 
     QString parseRecivedContent(const QString& content);
 
+    static QString find_lem(const QString where = ".");
+
     // class UninitializedLem : std::exception {}
 };
 
