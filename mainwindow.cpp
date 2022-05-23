@@ -8,7 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->listWidget->sizeHintForColumn(30);
-
+    ui->progressBar->minimum();
+    ui->progressBar->setMaximum(99);
+    ui->progressBar->setMinimum(-1);
+    ui->progressBar->setValue(9);
+    ui->horizontalSlider->setValue(9);
     ui->pushButton_5->setIcon(QIcon("C:/Users/Komp/Desktop/Icon/Trash_bin.png"));
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
@@ -37,8 +41,10 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     QString str;
+
     str = QFileDialog::getOpenFileName(this, "Выбрать файл", ui->lineEdit->text(),
-                                       "Текстовые файлы (*.txt);; Формат PDF (*.pdf);; All Files (*.*)");
+                                       "Текстовые файлы (*.txt);; Формат PDF (*.pdf)");
+
     ui->lineEdit_2->setReadOnly(true);
     ui->lineEdit_2->setAlignment(Qt::AlignLeft);
     ui->lineEdit_2->setText(str);
@@ -76,9 +82,8 @@ void MainWindow::slotFindFiles()
     progress.setWindowTitle("Окно прогресса");
     for (int i = 0; i < file_list.size(); ++i) {
         progress.setValue(i);
-        qDebug() << "<<<=====================>>>";
-        qDebug() << "proccessed files: <" << our_file.fileName() << "> and  <" <<  file_list.at(i).fileName() << ">";
-        if (FileProcessor::compare_files(our_file, file_list.at(i))) {
+
+        if (FileProcessor::compare_files(our_file, file_list.at(i), ui->progressBar->value())) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }
     }
@@ -86,8 +91,10 @@ void MainWindow::slotFindFiles()
         QMessageBox::warning(this, "Ошибка", "Что-то пошло не так - процесс был прерван");
     } else {
         QMessageBox::information(this, "Уведомление", "Алгоритм успешно нашел схожие файлы");
-    }
+        //ui->label_9->setNum(ui->listWidget->size());
+        ui->label_9->setNum(ui->listWidget->count());
 
+    }
 }
 
 

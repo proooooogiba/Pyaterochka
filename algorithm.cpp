@@ -96,7 +96,7 @@ void Algorithm::fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lem
 }
 
 //Сходство Жаккара
-bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
+bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B, int percent) {
     vector <QString> dest1;
     vector <QString> dest2;
 
@@ -107,8 +107,9 @@ bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B) {
     //qDebug нужен для ыввода значений коэффицентов
     //qDebug() << dest1.size() << '\n' << dest2.size();
     double coefficent = (double)dest1.size() / dest2.size();
+
     qDebug() << "coef: " << coefficent;
-    if ((coefficent) > 0.15) {
+    if (100 * coefficent > percent) {
         return true;
     }
     return false;
@@ -128,10 +129,11 @@ bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B) {
         tmp+= B[i] + ' ' + B[i + 1];
         set_B.insert(tmp);
     }
-    if (Jacar_alg(set_A, set_B)) {
-        return true;
-    }
-    return false;
+//    if (Jacar_alg(set_A, set_B, )) {
+//        return true;
+//    }
+    return true;
+    //return false;
 }
 
 

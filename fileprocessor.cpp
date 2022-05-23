@@ -22,7 +22,7 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
     }
 }
 
-bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info)
+bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent)
 {
     QFile our_file(our_file_info.filePath());
     QFile another_file(another_file_info.filePath());
@@ -52,10 +52,14 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     our_file.close();
     another_file.close();
 
+    qDebug() << "<<<=====================>>>";
+    qDebug() << "proccessed files: <" << our_file_info.fileName() << "> and  <" <<  another_file_info.fileName() << ">";
+
     qDebug() << "started Jacar alg";
-    bool result = compare.Jacar_alg(base_set, compare_set);
+    bool result = compare.Jacar_alg(base_set, compare_set, percent);
     qDebug() << "end of Jacar alg, result: " << result;
     qDebug() << ">>>=====================<<<\n\n";
+
 
     return result;
 }
