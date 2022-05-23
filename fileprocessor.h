@@ -5,6 +5,7 @@
 #include <QFileInfo>
 #include <QMessageBox>
 #include "algorithm.h"
+#include "lemmatizator.h"
 
 namespace FileProcessor
 {

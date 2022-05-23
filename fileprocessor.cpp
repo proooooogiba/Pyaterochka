@@ -1,7 +1,9 @@
 #include "fileprocessor.h"
-#include "lemmatizator.h"
+//#include "lemmatizator.h"
 
 #include <QCoreApplication>
+
+extern Lemmatizator global_lem;
 
 void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
 {
@@ -30,9 +32,12 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     our_file.open(QIODevice::ReadOnly);
     another_file.open(QIODevice::ReadOnly);
 
-    Lemmatizator lem;
-    bool success = lem.initialize();
-    qDebug() << "lematizator started successfully: " << success;
+    Lemmatizator& lem = global_lem;
+
+    if (!lem.is_initialized()) {
+        bool success = lem.initialize();
+        qDebug() << "lematizator started successfully: " << success;
+    }
 //    qDebug() << QCoreApplication::applicationDirPath();
 
     Algorithm compare;

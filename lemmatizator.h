@@ -16,6 +16,7 @@ class Lemmatizator{
     static const constexpr char* win_lem = "mystem_windows.exe";
     static const constexpr char* linux_lem = "mystem_linux";
 
+
 #if defined(Q_OS_WIN) || defined (Q_OS_WIN32)
     static const constexpr char* current_lem = Lemmatizator::win_lem;
 #else
@@ -32,6 +33,7 @@ class Lemmatizator{
     bool initialized = false;
 
   public:
+
     Lemmatizator();
 
     ~Lemmatizator();
@@ -42,7 +44,7 @@ class Lemmatizator{
 
     QString lemmatize(const QString& content);
 
-    QString lemmatizeb(QByteArray& content);
+    QString lemmatizeb(const QByteArray& content);
 
   private:
 

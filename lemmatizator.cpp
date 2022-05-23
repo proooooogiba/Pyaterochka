@@ -8,6 +8,8 @@
 #include <QCoreApplication>
 #include <QDirIterator>
 
+Lemmatizator global_lem;
+
 Lemmatizator::Lemmatizator() {
     QString program = find_lem();
     if (program == QString{""}) {
@@ -85,75 +87,16 @@ bool Lemmatizator::initialize() {
 }
 
 QString Lemmatizator::lemmatize(const QString& content) {
-    if(!initialized) {
-        // throw UninitializedLem();
-        return QString{};
-    }
-
-    QString return_content{};
-//    return_content.resize(content.size() * 2);
-
-    LOGGER << "start write to stem";
-
-//    stem.write(qPrintable(content.toLocal8Bit()));
-    stem.write(content.toLocal8Bit().data());
-//    stem.write("привет\n");
-    LOGGER << content;
-    LOGGER << content.size();
-    stem.write("\r\n");
-    stem.waitForBytesWritten();
-
-    LOGGER << "end write to stem";
-
-    LOGGER << "start read from stem";
-
-    QFile out("D:\\out.txt");
-    out.open(QFile::WriteOnly | QFile::Text);
-    QTextStream out_stream(&out);
-
-//    while (!stem.canReadLine()) {
-//        LOGGER << "wait";
-
-//    }
-    LOGGER << "ready read: " << stem.waitForReadyRead();
-
-    using std::chrono_literals::operator""ms;
-    std::this_thread::sleep_for(500ms);
-
-    QByteArray arr = stem.readAll();
-    return_content.append(QString::fromLocal8Bit(arr));
-
-    LOGGER << "array: " << arr;
-    LOGGER << "array length: " << arr.size();
-    LOGGER << "read from stem: " << return_content;
-
-    out_stream.flush();
-    out.close();
-
-//        if (return_content.count('[') ==
-//            return_content.count(']')) {
-//            break;
-//        }
-//    }
-
-    return_content = return_content.trimmed();
-
-    LOGGER << "end read from stem";
-    // LOGGER << "content: <" << content.data() << ">  size=" << content.size() << "\n";
-    // LOGGER << "sended: " << w << "   recived: " << total_read << "\n";
-    // LOGGER << "recived content data: " << return_content.data() << "\n";
-    // LOGGER << "recived content: " << return_content << "\n";
-    // LOGGER << "recived content size: " << return_content.size() << "\n\n\n";
-
-    return parseRecivedContent(return_content);
+    return lemmatizeb(content.toUtf8());
 }
 
-QString Lemmatizator::lemmatizeb(QByteArray& content) {
+QString Lemmatizator::lemmatizeb(const QByteArray& content_) {
     if(!initialized) {
         return QString{};
     }
     stem.readAll();
 
+    QByteArray content(content_.data(), content_.size());
     content.replace('\n', ' ');
 
 //    LOGGER << "write: " << QString(content);

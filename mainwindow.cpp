@@ -82,7 +82,9 @@ void MainWindow::slotFindFiles()
     progress.setWindowTitle("Окно прогресса");
     for (int i = 0; i < file_list.size(); ++i) {
         progress.setValue(i);
-
+        if (file_list.at(i) == our_file) {
+            continue;
+        }
         if (FileProcessor::compare_files(our_file, file_list.at(i), ui->progressBar->value())) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }
