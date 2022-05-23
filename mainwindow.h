@@ -14,6 +14,8 @@
 #include <QProgressDialog>
 #include <QThread>
 #include <QTextStream>
+#include <QProcess>
+#include <QListWidgetItem>
 
 #include "fileprocessor.h"
 
@@ -46,6 +48,9 @@ private slots:
     void slotDeleteItem();
 
     void on_pushButton_6_clicked();
+
+    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
 
 signals:
     void collect_contents();

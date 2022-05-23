@@ -13,14 +13,16 @@ SOURCES += \
     fileprocessor.cpp \
     lemmatizator.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    pdftextextractor.cpp
 
 HEADERS += \
     algorithm.h \
     fileprocessor.h \
     json.hpp \
     lemmatizator.h \
-    mainwindow.h
+    mainwindow.h \
+    pdftextextractor.h
 
 FORMS += \
     mainwindow.ui

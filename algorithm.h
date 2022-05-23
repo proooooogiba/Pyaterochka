@@ -38,6 +38,10 @@ public:
 
     void fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lemmatizator& lem);
 
+    void fill_set_lemmatize(const QString& in, set<QString>& set_of_keywords, Lemmatizator& lem);
+
+    void fill_set_lemmatize(const QByteArray& in_bytes, set<QString>& set_of_keywords, Lemmatizator& lem);
+
     bool Jacar_alg(set<QString>& A, set<QString>& B, int percent);
 
     bool Shingl_alg(vector<QString>& A, vector<QString>& B);

@@ -43,7 +43,9 @@ void MainWindow::on_pushButton_2_clicked()
     QString str;
 
     str = QFileDialog::getOpenFileName(this, "Выбрать файл", ui->lineEdit->text(),
-                                       "Текстовые файлы (*.txt);; Формат PDF (*.pdf)");
+                                       "Все поддерживаемые форматы (*.pdf;*.txt);;"
+                                       "Текстовые файлы (*.txt);;"
+                                       "Формат PDF (*.pdf)");
 
     ui->lineEdit_2->setReadOnly(true);
     ui->lineEdit_2->setAlignment(Qt::AlignLeft);
@@ -69,6 +71,9 @@ void MainWindow::slotFindFiles()
     {
         return;
     }
+    ui->listWidget->clear();
+    ui->label_9->setNum(0);
+
     QDir search_directory(ui->lineEdit->text());
     QFileInfoList file_list;
 
@@ -91,11 +96,13 @@ void MainWindow::slotFindFiles()
     }
     if (progress.wasCanceled()) {
         QMessageBox::warning(this, "Ошибка", "Что-то пошло не так - процесс был прерван");
+    } else if (ui->listWidget->count() == 0) {
+        QMessageBox::information(this, "Уведомление", "Не найдены похожие файлы, попробуйте уменьшить коеффициент схожести");
+        ui->label_9->setNum(0);
     } else {
         QMessageBox::information(this, "Уведомление", "Алгоритм успешно нашел схожие файлы");
         //ui->label_9->setNum(ui->listWidget->size());
         ui->label_9->setNum(ui->listWidget->count());
-
     }
 }
 
@@ -179,6 +186,19 @@ void MainWindow::on_pushButton_6_clicked()
 {
     ui->listWidget->clear();
     ui->lineEdit_5->clear();
+    ui->label_9->setNum(0);
     return;
+}
+
+
+void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+    qDebug() << "dclick: " << item->text();
+    QProcess proc(this);
+    proc.setProgram("start");
+    proc.setArguments(QStringList() << item->text());
+    proc.start();
+    qDebug() << "started: " << proc.waitForStarted();
+    qDebug() << "error: " <<proc.errorString();
 }
 

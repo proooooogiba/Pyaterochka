@@ -20,6 +20,8 @@ Lemmatizator::Lemmatizator() {
     }
     stem.setProgram(program);
     stem.setArguments(QStringList() << "--format=json");
+    bool success = initialize();
+    qDebug() << "lematizator started successfully: " << success;
 }
 
 Lemmatizator::~Lemmatizator() {

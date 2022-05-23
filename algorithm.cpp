@@ -95,6 +95,21 @@ void Algorithm::fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lem
     }
 }
 
+void Algorithm::fill_set_lemmatize(const QString& in, set<QString>& set_of_keywords, Lemmatizator& lem) {
+    QByteArray bytes = in.toUtf8();
+    QString lemmatized_text = lem.lemmatizeb(bytes);
+    for (QString word : lemmatized_text.split(" ")) {
+        set_of_keywords.insert(word);
+    }
+}
+
+void Algorithm::fill_set_lemmatize(const QByteArray& in_bytes, set<QString>& set_of_keywords, Lemmatizator& lem) {
+    QString lemmatized_text = lem.lemmatizeb(in_bytes);
+    for (QString word : lemmatized_text.split(" ")) {
+        set_of_keywords.insert(word);
+    }
+}
+
 //Сходство Жаккара
 bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B, int percent) {
     vector <QString> dest1;
