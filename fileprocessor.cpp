@@ -40,7 +40,6 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
         bool success = lem.initialize();
         qDebug() << "lematizator started successfully: " << success;
     }
-    qDebug() << "lem passed ";
 
     Algorithm compare;
 
