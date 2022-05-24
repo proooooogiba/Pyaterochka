@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalSlider->setMaximum(100);
     ui->horizontalSlider->setMinimum(1);
 
+    ui->lineEdit_5->setFrame(false);
     ui->pushButton_5->setIcon(QIcon("C:/Users/Komp/Desktop/Icon/Trash_bin.png"));
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
@@ -35,6 +36,9 @@ void MainWindow::on_pushButton_clicked()
     QString str;
     str = QFileDialog::getExistingDirectory(this, "Выбрать директорию", "C:\\");
     ui->lineEdit->setReadOnly(true);
+    if (str.isEmpty()) {
+        return;
+    }
     ui->lineEdit->setText(str);
     ui->lineEdit->setAlignment(Qt::AlignLeft);
     ui->lineEdit->alignment();
@@ -51,6 +55,9 @@ void MainWindow::on_pushButton_2_clicked()
                                        "Формат PDF (*.pdf)");
 
     ui->lineEdit_2->setReadOnly(true);
+    if (str.isEmpty()) {
+        return;
+    }
     ui->lineEdit_2->setAlignment(Qt::AlignLeft);
     ui->lineEdit_2->setText(str);
 }
@@ -112,11 +119,11 @@ void MainWindow::slotFindFiles()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    if (ui->lineEdit_4->text().isEmpty())
-    {
-        QMessageBox::warning(this, "Ошибка", "Название для новой папки не может быть пустым");
-        return;
-    }
+//    if (ui->lineEdit_4->text().isEmpty())
+//    {
+//        QMessageBox::warning(this, "Ошибка", "Название для новой папки не может быть пустым");
+//        return;
+//    }
     if (ui->listWidget->count() == 0)
     {
         QMessageBox::warning(this, "Ошибка", "Должен быть хотя бы один файл");
@@ -128,7 +135,7 @@ void MainWindow::on_pushButton_3_clicked()
     progress.setWindowTitle("Окно прогресса");
     for(int i = 0; i < ui->listWidget->count(); ++i)
     {
-        AddToFolder(ui->lineEdit_3->text(), ui->lineEdit_4->text(), ui->listWidget->item(i)->text());
+        AddToFolder(ui->lineEdit_3->text(), ui->listWidget->item(i)->text());
         progress.setValue(i);
     }
     if (progress.wasCanceled()) {
@@ -161,9 +168,9 @@ void MainWindow::slotDeleteItem()
     delete it;
 }
 
-void MainWindow::AddToFolder(QString file_path, QString folder_name, QString file_name)
+void MainWindow::AddToFolder(QString file_path, QString file_name)
 {
-    QDir dir(file_path + "/" + folder_name);
+    QDir dir(file_path);
     // если такой папки в указанной директории не существует, то создает новую папку с указанным именем
     if (!dir.exists())
     {
@@ -173,7 +180,7 @@ void MainWindow::AddToFolder(QString file_path, QString folder_name, QString fil
     QFileInfo fileInfo(file_name);
     QString filename(fileInfo.fileName());
 
-    QString dstPath = file_path + "/" + folder_name + "/" + filename;
+    QString dstPath = file_path + "/" + filename;
 
     if (QFile::exists(dstPath)) {
         QFile::remove(dstPath);
@@ -203,5 +210,12 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
     proc.start();
     qDebug() << "started: " << proc.waitForStarted();
     qDebug() << "error: " <<proc.errorString();
+}
+
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    ui->label_10->setNum(value);
+    ui->label_10->setText(QString::number(value) + "%");
 }
 

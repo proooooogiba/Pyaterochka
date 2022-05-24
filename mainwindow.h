@@ -33,7 +33,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void AddToFolder(QString file_path, QString folder_name, QString file_name);
+    void AddToFolder(QString file_path, QString file_name);
 
 private slots:
     void on_pushButton_clicked();
@@ -51,6 +51,8 @@ private slots:
 
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
+
+    void on_horizontalSlider_valueChanged(int value);
 
 signals:
     void collect_contents();

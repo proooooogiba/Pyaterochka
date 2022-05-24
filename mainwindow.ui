@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>769</width>
-    <height>599</height>
+    <width>727</width>
+    <height>523</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>340</y>
+      <y>360</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -137,24 +137,11 @@
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:700;&quot;&gt;Сохранение&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>470</y>
-      <width>221</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Введите название новой папки</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>410</y>
+      <y>430</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -167,7 +154,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>410</y>
+      <y>430</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -185,27 +172,11 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>500</y>
-      <width>261</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-    <property name="readOnly">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>380</y>
+      <y>400</y>
       <width>281</width>
       <height>20</height>
      </rect>
@@ -238,10 +209,11 @@
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(164, 203, 255)</string>
+background-color: rgb(164, 203, 255);
+border: none;</string>
     </property>
     <property name="text">
-     <string>Сформировать папку</string>
+     <string>Скопировать папку</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -303,7 +275,7 @@ background-color: rgb(164, 203, 255)</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">border-right: none</string>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
@@ -326,7 +298,7 @@ background-color: rgb(164, 203, 255)</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(197, 52, 78);
-border-color: rgb(197, 52, 78);</string>
+border: none</string>
     </property>
     <property name="text">
      <string/>
@@ -340,7 +312,7 @@ border-color: rgb(197, 52, 78);</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>260</y>
+      <y>330</y>
       <width>241</width>
       <height>22</height>
      </rect>
@@ -365,14 +337,53 @@ border-color: rgb(197, 52, 78);</string>
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>260</y>
+      <x>270</x>
+      <y>330</y>
       <width>41</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>9</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>220</y>
+      <width>131</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="text">
+        <string>Английский</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="text">
+        <string>Русский</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>300</y>
+      <width>291</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Процента сходства</string>
     </property>
    </widget>
   </widget>
@@ -381,7 +392,7 @@ border-color: rgb(197, 52, 78);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>769</width>
+     <width>727</width>
      <height>26</height>
     </rect>
    </property>
