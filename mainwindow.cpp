@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalSlider->setMaximum(100);
     ui->horizontalSlider->setMinimum(1);
 
-    ui->lineEdit_5->setFrame(false);
+    //ui->lineEdit_5->setFrame(false);
     ui->pushButton_5->setIcon(QIcon("C:/Users/Komp/Desktop/Icon/Trash_bin.png"));
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
