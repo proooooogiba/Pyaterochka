@@ -7,17 +7,20 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->lineEdit->setAlignment(Qt::AlignmentFlag::AlignRight);
+    ui->listWidget->setItemAlignment(Qt::AlignmentFlag::AlignRight);
     ui->listWidget->sizeHintForColumn(30);
-    ui->progressBar->minimum();
-    ui->progressBar->setMaximum(99);
-    ui->progressBar->setMinimum(-1);
-    ui->progressBar->setValue(9);
+
     ui->horizontalSlider->setValue(9);
+    ui->horizontalSlider->setMaximum(100);
+    ui->horizontalSlider->setMinimum(1);
+
     ui->pushButton_5->setIcon(QIcon("C:/Users/Komp/Desktop/Icon/Trash_bin.png"));
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->listWidget, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectFile()));
     connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(slotDeleteItem()));
+    connect(ui->horizontalSlider, SIGNAL(valueChanged()), this, SLOT(setNum()));
 }
 
 
@@ -90,7 +93,7 @@ void MainWindow::slotFindFiles()
         if (file_list.at(i) == our_file) {
             continue;
         }
-        if (FileProcessor::compare_files(our_file, file_list.at(i), ui->progressBar->value())) {
+        if (FileProcessor::compare_files(our_file, file_list.at(i), /*ui->progressBar->value()*/ui->horizontalSlider->value())) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }
     }

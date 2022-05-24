@@ -56,7 +56,7 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
                     base_set,
                     lem);
     } else {
-        throw std::exception("not supported file type");
+        throw;// std::exception("not supported file type");
     }
 
 //    std::vector<QString> compare_vec;
@@ -72,7 +72,7 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
                     compare_set,
                     lem);
     } else {
-        throw std::exception("not supported file type");
+        throw;// std::exception("not supported file type");
     }
 
     our_file.close();

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>739</width>
-    <height>562</height>
+    <width>769</width>
+    <height>599</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <normaloff>:/media/images/icon_search.png</normaloff>:/media/images/icon_search.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">alternate-background-color: rgb(108, 186, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
@@ -128,7 +128,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>220</y>
+      <y>340</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -141,7 +141,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>350</y>
+      <y>470</y>
       <width>221</width>
       <height>20</height>
      </rect>
@@ -154,7 +154,7 @@
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>290</y>
+      <y>410</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -167,7 +167,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>290</y>
+      <y>410</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -189,7 +189,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>380</y>
+      <y>500</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -205,7 +205,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>260</y>
+      <y>380</y>
       <width>281</width>
       <height>20</height>
      </rect>
@@ -336,25 +336,12 @@ border-color: rgb(197, 52, 78);</string>
       <normaloff>:/media/images/icon_reaload.png</normaloff>:/media/images/icon_reaload.png</iconset>
     </property>
    </widget>
-   <widget class="QProgressBar" name="progressBar">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>440</y>
-      <width>351</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="value">
-     <number>24</number>
-    </property>
-   </widget>
    <widget class="QSlider" name="horizontalSlider">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>480</y>
-      <width>311</width>
+      <y>260</y>
+      <width>241</width>
       <height>22</height>
      </rect>
     </property>
@@ -375,13 +362,26 @@ border-color: rgb(197, 52, 78);</string>
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>260</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>739</width>
+     <width>769</width>
      <height>26</height>
     </rect>
    </property>
@@ -391,22 +391,5 @@ border-color: rgb(197, 52, 78);</string>
  <resources>
   <include location="resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>horizontalSlider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>progressBar</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>233</x>
-     <y>523</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>235</x>
-     <y>471</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
