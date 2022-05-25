@@ -14,7 +14,7 @@ Lemmatizator::Lemmatizator() {
     QString program = find_lem();
     if (program == QString{""}) {
         qDebug() << "can not find lemmatizator =(";
-        throw std::exception("lemmatizator not found");
+        throw; //std::exception("lemmatizator not found");
     } else {
         qDebug() << "lemmatizator found: " << program;
     }
@@ -37,7 +37,7 @@ QString Lemmatizator::find_lem(const QString where) {
     int processed = 0;
     QDirIterator it(current_path.absolutePath(), QDir::Files, QDirIterator::Subdirectories);
     while (it.hasNext()) {
-        QFileInfo info = it.nextFileInfo();
+        QFileInfo info = QFileInfo(it.next());
         if (info.fileName() == program) {
             program = info.absoluteFilePath();
             break;
@@ -56,7 +56,7 @@ QString Lemmatizator::find_lem(const QString where) {
     processed = 0;
     QDirIterator it_parent(current_path.absolutePath(), QDir::Files, QDirIterator::Subdirectories);
     while (it_parent.hasNext()) {
-        QFileInfo info = it_parent.nextFileInfo();
+        QFileInfo info = QFileInfo(it_parent.next());
         if (info.fileName() == program) {
             program = info.absoluteFilePath();
             break;

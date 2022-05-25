@@ -9,7 +9,7 @@ PdfTextExtractor::PdfTextExtractor() {
     QString program = find_ext();
     if (program == QString{""}) {
         qDebug() << "can not find pdf text expractor =(";
-        throw std::exception("pdf text expractor not found");
+        throw;// std::exception("pdf text expractor not found");
     } else {
         qDebug() << "pdf text expractor found: " << program;
     }
@@ -29,7 +29,7 @@ QString PdfTextExtractor::find_ext(const QString where) {
     int processed = 0;
     QDirIterator it(current_path.absolutePath(), QDir::Files, QDirIterator::Subdirectories);
     while (it.hasNext()) {
-        QFileInfo info = it.nextFileInfo();
+        QFileInfo info = QFileInfo(it.next());
         if (info.fileName() == program) {
             program = info.absoluteFilePath();
             break;
@@ -48,7 +48,7 @@ QString PdfTextExtractor::find_ext(const QString where) {
     processed = 0;
     QDirIterator it_parent(current_path.absolutePath(), QDir::Files, QDirIterator::Subdirectories);
     while (it_parent.hasNext()) {
-        QFileInfo info = it_parent.nextFileInfo();
+        QFileInfo info = QFileInfo(it_parent.next());
         if (info.fileName() == program) {
             program = info.absoluteFilePath();
             break;
