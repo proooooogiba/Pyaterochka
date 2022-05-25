@@ -25,7 +25,6 @@ bool Algorithm::check_familiar_words(const QString& a) {
 }
 
 void Algorithm::delete_symbol(QString& a) {
-
     vector <QChar> symbols = {',', '.', '?', '!', ';', ':', ')', '(', '}', '{', '\"', '\'', '>', '<'};
     bool flag = false;
     for (int i =0; i < a.length(); ++i)
@@ -75,7 +74,6 @@ void Algorithm::fill_vec (QFile& in, vector<QString>& key_words_vec) {
     }
 }
 
-
 void Algorithm::fill_vecb(const QByteArray& in, vector<QString>& key_words_vec) {
     QStringList words = QString::fromUtf8(in).split(' ');
     for (QString tmp : words) {
@@ -113,6 +111,15 @@ void Algorithm::fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lem
     }
 }
 
+void Algorithm::fill_vector_lemmatize(QFile& in, vector<QString>& vector_of_keywords, Lemmatizator& lem) {
+    QByteArray bytes = in.readAll();
+    QString lemmatized_text = lem.lemmatizeb(bytes);
+    for (QString word : lemmatized_text.split(" ")) {
+        vector_of_keywords.push_back(word);
+    }
+}
+
+
 void Algorithm::fill_set_lemmatize(const QString& in, set<QString>& set_of_keywords, Lemmatizator& lem) {
     QByteArray bytes = in.toUtf8();
     QString lemmatized_text = lem.lemmatizeb(bytes);
@@ -121,10 +128,26 @@ void Algorithm::fill_set_lemmatize(const QString& in, set<QString>& set_of_keywo
     }
 }
 
+void Algorithm::fill_vector_lemmatize(const QString& in, vector<QString>& vector_of_keywords, Lemmatizator& lem) {
+    QByteArray bytes = in.toUtf8();
+    QString lemmatized_text = lem.lemmatizeb(bytes);
+    for (QString word : lemmatized_text.split(" ")) {
+        vector_of_keywords.push_back(word);
+    }
+}
+
+
 void Algorithm::fill_set_lemmatize(const QByteArray& in_bytes, set<QString>& set_of_keywords, Lemmatizator& lem) {
     QString lemmatized_text = lem.lemmatizeb(in_bytes);
     for (QString word : lemmatized_text.split(" ")) {
         set_of_keywords.insert(word);
+    }
+}
+
+void Algorithm::fill_vector_lemmatize(const QByteArray& in_bytes, vector<QString>& vector_of_keywords, Lemmatizator& lem) {
+    QString lemmatized_text = lem.lemmatizeb(in_bytes);
+    for (QString word : lemmatized_text.split(" ")) {
+        vector_of_keywords.push_back(word);
     }
 }
 
@@ -137,7 +160,6 @@ bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B, int percent) {
         std::back_inserter(dest1));
     std::set_union(A.begin(), A.end(),
         B.begin(), B.end(), std::back_inserter(dest2));
-    //qDebug нужен для ыввода значений коэффицентов
     //qDebug() << dest1.size() << '\n' << dest2.size();
     double coefficent = (double)dest1.size() / dest2.size();
 
@@ -149,7 +171,7 @@ bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B, int percent) {
 }
 
 //Сходство Шингла
-bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B) {
+bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B, int percent) {
     set <QString> set_A;
     set <QString> set_B;
     for (size_t i = 0; i < A.size() - 1; ++i) {
@@ -162,11 +184,10 @@ bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B) {
         tmp+= B[i] + ' ' + B[i + 1];
         set_B.insert(tmp);
     }
-//    if (Jacar_alg(set_A, set_B, )) {
-//        return true;
-//    }
-    return true;
-    //return false;
+    if (Jacar_alg(set_A, set_B, percent)) {
+        return true;
+    }
+    return false;
 }
 
 

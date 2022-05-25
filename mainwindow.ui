@@ -19,7 +19,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
-	background-color: rgb(255, 255, 255);
+	background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0.273, stop:0 rgba(2, 170, 176, 180), stop:1 	 	rgba(0, 205, 172, 180));
+	backdrop-filter: blur(100px);
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -39,7 +40,7 @@
 	border-left: 2px solid rgb(149, 214, 142);
 	border-right: 2px solid rgb(149, 214, 142);
 	border-bottom: 2px solid rgb(149, 214, 142);
-	
+	color: rgb(43, 84, 65);
 	background-color: rgb(149, 214, 142);
 }
 
@@ -65,13 +66,30 @@ QPushButton:hover {
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
     <property name="styleSheet">
-     <string notr="true">QLineEdit:hover {
+     <string notr="true">QLineEdit {
 	border: none;
 	border-top: 2px solid rgb(149, 214, 142);
 	border-left: 2px solid rgb(149, 214, 142);
 	border-right: 2px solid rgb(149, 214, 142);
 	border-bottom: 2px solid rgb(149, 214, 142);
+	text-align:right;
+	font: 9pt &quot;Open Sans&quot;;
+}
+
+QLineEdit:hover {
+	border: none;
+	border-top: 2px solid rgb(85, 153, 74);
+	border-left: 2px solid rgb(85, 153, 74);
+	border-right: 2px solid rgb(85, 153, 74);
+	border-bottom: 2px solid rgb(85, 153, 74);
 }</string>
     </property>
     <property name="echoMode">
@@ -84,7 +102,7 @@ QPushButton:hover {
      <bool>true</bool>
     </property>
     <property name="placeholderText">
-     <string/>
+     <string>Выберите директорию для поиска</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
@@ -103,7 +121,7 @@ QPushButton:hover {
 	border-left: 2px solid rgb(149, 214, 142);
 	border-right: 2px solid rgb(149, 214, 142);
 	border-bottom: 2px solid rgb(149, 214, 142);
-	
+	color: rgb(43, 84, 65);
 	background-color: rgb(149, 214, 142);
 }
 
@@ -129,17 +147,50 @@ QPushButton:hover {
       <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <italic>false</italic>
+      <bold>false</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>PreferAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::WheelFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
-     <string notr="true">QLineEdit:hover {
+     <string notr="true">QLineEdit {
 	border: none;
 	border-top: 2px solid rgb(149, 214, 142);
 	border-left: 2px solid rgb(149, 214, 142);
 	border-right: 2px solid rgb(149, 214, 142);
 	border-bottom: 2px solid rgb(149, 214, 142);
+	text-align:right;
+	font: 9pt &quot;Open Sans&quot;;
+}
+
+QLineEdit:hover {
+	border: none;
+	border-top: 2px solid rgb(85, 153, 74);
+	border-left: 2px solid rgb(85, 153, 74);
+	border-right: 2px solid rgb(85, 153, 74);
+	border-bottom: 2px solid rgb(85, 153, 74);
 }</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
     <property name="readOnly">
      <bool>true</bool>
+    </property>
+    <property name="placeholderText">
+     <string>Выберите файл</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -150,6 +201,11 @@ QPushButton:hover {
       <width>141</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:700;&quot;&gt;Поиск&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -165,7 +221,7 @@ QPushButton:hover {
      </rect>
     </property>
     <property name="text">
-     <string>Выберите директорию для поиска</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -178,7 +234,7 @@ QPushButton:hover {
      </rect>
     </property>
     <property name="text">
-     <string>Выберите файл</string>
+     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -190,6 +246,11 @@ QPushButton:hover {
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:700;&quot;&gt;Сохранение&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
@@ -198,7 +259,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>430</y>
+      <y>420</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -211,6 +272,7 @@ QPushButton:hover {
 	border-right: 2px solid rgb(164, 203, 255);
 	border-bottom: 2px solid rgb(164, 203, 255);
 	
+	color: rgb(19, 26, 163);
 	background-color: rgb(155, 198, 255);
 }
 
@@ -221,6 +283,19 @@ QPushButton:hover {
 	border-right: 2px solid rgb(105, 138, 255);
 	border-bottom: 2px solid rgb(105, 138, 255);
 	background-color: rgb(155, 198, 255);
+}
+
+QPushButton:pressed {
+	border: none;
+	border-top: 2px solid rgb(105, 138, 255);
+	border-left: 2px solid rgb(105, 138, 255);
+	border-right: 2px solid rgb(105, 138, 255);
+	border-bottom: 2px solid rgb(105, 138, 255);
+	
+	
+	
+	background-color: rgb(148, 214, 255);
+
 }</string>
     </property>
     <property name="text">
@@ -231,18 +306,29 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>430</y>
+      <y>420</y>
       <width>261</width>
       <height>31</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QLineEdit:hover {
+     <string notr="true">QLineEdit {
 	border: none;
 	border-top: 2px solid rgb(164, 203, 255);
 	border-left: 2px solid rgb(164, 203, 255);
 	border-right: 2px solid rgb(164, 203, 255);
 	border-bottom: 2px solid rgb(164, 203, 255);
+	text-align:right;
+}
+
+
+QLineEdit:hover {
+	border: none;
+	border-top: 2px solid rgb(105, 138, 255);
+	border-left: 2px solid  rgb(105, 138, 255);
+	border-right: 2px solid  rgb(105, 138, 255);
+	border-bottom: 2px solid  rgb(105, 138, 255);
+	text-align:right;
 }</string>
     </property>
     <property name="echoMode">
@@ -255,19 +341,6 @@ QPushButton:hover {
      <bool>true</bool>
     </property>
     <property name="placeholderText">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>400</y>
-      <width>281</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
      <string>Выберите директорию для сохранения </string>
     </property>
    </widget>
@@ -279,6 +352,11 @@ QPushButton:hover {
       <width>181</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Результаты поиска&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -293,14 +371,26 @@ QPushButton:hover {
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
 color: rgb(255, 255, 255);
 background-color: rgb(164, 203, 255);
 border: none;
+text: bold;
 }
 
 QPushButton:hover {
+	border: none;
+	border-top: 3px solid rgb(164, 203, 255);
+	border-left: 3px solid rgb(164, 203, 255);
+	border-right: 3px solid rgb(164, 203, 255);
+	border-bottom: 3px solid rgb(164, 203, 255);
 	background-color: rgb(120, 171, 253);
 }
 
@@ -311,7 +401,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>Скопировать папку</string>
+     <string>Сохранить</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_8">
@@ -324,7 +414,10 @@ QPushButton:pressed {
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(149, 214, 142);</string>
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+	background-color: rgb(149, 214, 142);
+}</string>
     </property>
     <property name="text">
      <string>Найдено файлов:</string>
@@ -347,6 +440,15 @@ QPushButton:pressed {
 	border: none;
 	border-left: 1px solid rgb(0, 0, 0);
 	border-right: 1px solid rgb(0, 0, 0);
+}
+
+QLineEdit:hover {
+	border: none;
+	border-left: 2px solid rgb(158, 0, 0);
+	border-right: 2px solid rgb(158, 0, 0);
+	border-top: 2px solid rgb(158, 0, 0);
+	border-bottom: 2px solid rgb(158, 0, 0);
+	
 }</string>
     </property>
     <property name="readOnly">
@@ -366,9 +468,26 @@ QPushButton:pressed {
      <string notr="true">QPushButton {
 	border: none;
 	border-left: 1px solid rgb(0, 0, 0);
+	border-right: 1px solid rgb(0, 0, 0);
+	border-bottom: 1px solid rgb(0, 0, 0);
+	background-color: rgb(166, 148, 255);
+}
+
+QPushButton:hover {
+	border: none;
+	border-left: 1px solid rgb(109, 12, 206);
+	border-right: 1px solid rgb(109, 12, 206);
+	border-bottom: 1px solid rgb(109, 12, 206);
+	border-top: 1px solid rgb(109, 12, 206);
+	background-color: rgb(97, 91, 182);
+}
+
+QPushButton:pressed {
+	border: none;
+	border-left: 1px solid rgb(0, 0, 0);
 	border-right: 0.5px solid rgb(0, 0, 0);
 	border-bottom: 0.5px solid rgb(0, 0, 0);
-	background-color: rgb(166, 148, 255);
+	background-color: rgb(146, 107, 194);
 }</string>
     </property>
     <property name="text">
@@ -377,6 +496,12 @@ QPushButton:pressed {
     <property name="icon">
      <iconset resource="resources.qrc">
       <normaloff>:/media/images/Trash_bin.png</normaloff>:/media/images/Trash_bin.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>21</width>
+      <height>21</height>
+     </size>
     </property>
    </widget>
    <widget class="QListWidget" name="listWidget">
@@ -395,7 +520,17 @@ QPushButton:pressed {
 	border-left: 1px solid rgb(0, 0, 0);
 	border-right: 1px solid rgb(0, 0, 0);
 	border-bottom: 1px solid rgb(0, 0, 0);
-}</string>
+}
+
+QListWidget:hover {
+	border: none;
+	border-left: 2px solid rgb(158, 0, 0);
+	border-right: 2px solid rgb(158, 0, 0);
+	border-top: 2px solid rgb(158, 0, 0);
+	border-bottom: 2px solid rgb(158, 0, 0);
+}
+
+/*QListWidget::item: { border: 1px solid rgb(158, 0, 0); } */</string>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
@@ -412,7 +547,7 @@ QPushButton:pressed {
      <rect>
       <x>430</x>
       <y>350</y>
-      <width>242</width>
+      <width>241</width>
       <height>33</height>
      </rect>
     </property>
@@ -421,8 +556,18 @@ QPushButton:pressed {
 background-color: rgb(197, 52, 78);
 border: none;
 }
+
 QPushButton:hover {
+	border: none;
 	background-color:  rgb(170, 28, 61);
+	border-top: 3px solid rgb(139, 0, 0);
+	border-left: 3px solid rgb(139, 0, 0);
+	border-right: 3px solid rgb(139, 0, 0);
+	border-bottom: 3px solid rgb(139, 0, 0);
+	
+	
+	background-color: rgb(190, 34, 58);
+	
 }
 
 QPushButton:pressed {
@@ -443,10 +588,71 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>330</y>
+      <y>320</y>
       <width>241</width>
-      <height>22</height>
+      <height>41</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: white;
+height: 8px;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal {
+background: rgb(155, 198, 255);
+border: 1px solid #777;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+background: 474b59;
+border: 1px solid #777;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+background: #ced7d9;
+border: 1px solid #777;
+width: 13px;
+height: 20px;
+margin-top: -10px;
+margin-bottom: -7px;
+border-radius: 5px;
+}
+
+/*
+QSlider::handle:horizontal:hover {
+background: white;
+border: 1px solid #444;
+border-radius: 50%;
+width: 13px;
+margin-top: -5px;
+margin-bottom: -3px;
+border-radius: 7px;
+}
+
+QSlider::sub-page:horizontal:disabled {
+background: #bbb;
+border-color: #999;
+}
+
+QSlider::add-page:horizontal:disabled {
+background: #eee;
+border-color: #999;
+}
+
+QSlider::handle:horizontal:disabled {
+background: #eee;
+border: 1px solid #aaa;
+border-radius: 4px;
+}
+*/
+</string>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -461,6 +667,11 @@ QPushButton:pressed {
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -473,6 +684,11 @@ QPushButton:pressed {
       <width>41</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>9</string>
@@ -490,6 +706,21 @@ QPushButton:pressed {
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QRadioButton" name="radioButton_2">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	width: 20px;
+    height: 20px;
+	color: rgb(255, 255, 255);
+	
+}
+
+QRadioButton:hover {
+	color: rgb(172, 215, 255);
+}
+
+
+</string>
+       </property>
        <property name="text">
         <string>Английский</string>
        </property>
@@ -497,6 +728,15 @@ QPushButton:pressed {
      </item>
      <item>
       <widget class="QRadioButton" name="radioButton">
+       <property name="styleSheet">
+        <string notr="true">QRadioButton {
+	color: rgb(255, 255, 255);
+}
+
+QRadioButton:hover {
+	color: rgb(172, 215, 255);
+}</string>
+       </property>
        <property name="text">
         <string>Русский</string>
        </property>
@@ -516,8 +756,31 @@ QPushButton:pressed {
       <height>20</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+    </property>
     <property name="text">
      <string>Процента сходства</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>520</y>
+      <width>191</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel {
+	color: rgb(255, 255, 255);
+}</string>
+    </property>
+    <property name="text">
+     <string>Copyright Пятёрочка 2022</string>
     </property>
    </widget>
   </widget>

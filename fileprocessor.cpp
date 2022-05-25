@@ -48,7 +48,6 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
 //    std::vector<QString> base_vec;
 //    compare.fill_vec(in_our, base_vec);
 
-
     std::set<QString> base_set;
     if (QFileInfo(our_file).suffix() == "txt") {
 //        if (english) {
@@ -68,12 +67,8 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
                         lem);
 //        }
     } else {
-        throw;// std::exception("not supported file type");
+        throw;
     }
-
-//    std::vector<QString> compare_vec;
-//    compare.fill_vec(in_another, compare_vec);
-
 
     std::set<QString> compare_set;
     if (QFileInfo(another_file).suffix() == "txt") {
@@ -94,7 +89,7 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
                         lem);
 //        }
     } else {
-        throw;// std::exception("not supported file type");
+        throw;
     }
 
     our_file.close();
