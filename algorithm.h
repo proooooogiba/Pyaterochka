@@ -42,9 +42,15 @@ public:
 
     void fill_set_lemmatize(const QByteArray& in_bytes, set<QString>& set_of_keywords, Lemmatizator& lem);
 
+    void fill_vector_lemmatize(QFile& in, vector<QString>& vector_of_keywords, Lemmatizator& lem);
+
+    void fill_vector_lemmatize(const QString& in, vector<QString>& vector_of_keywords, Lemmatizator& lem);
+
+    void fill_vector_lemmatize(const QByteArray& in_bytes, vector<QString>& vector_of_keywords, Lemmatizator& lem);
+
     bool Jacar_alg(set<QString>& A, set<QString>& B, int percent);
 
-    bool Shingl_alg(vector<QString>& A, vector<QString>& B);
+    bool Shingl_alg(vector<QString>& A, vector<QString>& B, int percent);
 
 };
 

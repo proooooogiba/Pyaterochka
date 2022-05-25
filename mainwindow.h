@@ -16,6 +16,7 @@
 #include <QTextStream>
 #include <QProcess>
 #include <QListWidgetItem>
+#include <QFontDatabase>
 
 #include "fileprocessor.h"
 

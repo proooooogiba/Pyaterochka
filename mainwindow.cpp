@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->lineEdit->setAlignment(Qt::AlignmentFlag::AlignRight);
+
+    QFontDatabase::addApplicationFont("C:/Users/Komp/Desktop/fonts/OpenSans-VariableFont_wdth,wght.ttf");
     ui->listWidget->setItemAlignment(Qt::AlignmentFlag::AlignRight);
     ui->listWidget->sizeHintForColumn(30);
 
@@ -15,8 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->horizontalSlider->setMaximum(100);
     ui->horizontalSlider->setMinimum(1);
 
-    //ui->lineEdit_5->setFrame(false);
-    ui->pushButton_5->setIcon(QIcon("C:/Users/Komp/Desktop/Icon/Trash_bin.png"));
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
     connect(ui->listWidget, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectFile()));
@@ -92,7 +91,7 @@ void MainWindow::slotFindFiles()
     QFileInfo our_file(ui->lineEdit_2->text());
 
 
-    QProgressDialog progress("Формирование папки", "Прервать формирование", 0,  file_list.size(), this);
+    QProgressDialog progress("Поиск схожих файлов по содержанию", "Прервать поиск", 0,  file_list.size(), this);
     progress.setWindowModality(Qt::WindowModal);
     progress.setWindowTitle("Окно прогресса");
     for (int i = 0; i < file_list.size(); ++i) {
@@ -100,7 +99,7 @@ void MainWindow::slotFindFiles()
         if (file_list.at(i) == our_file) {
             continue;
         }
-        if (FileProcessor::compare_files(our_file, file_list.at(i), /*ui->progressBar->value()*/ui->horizontalSlider->value())) {
+        if (FileProcessor::compare_files(our_file, file_list.at(i), ui->horizontalSlider->value())) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }
     }
@@ -119,11 +118,6 @@ void MainWindow::slotFindFiles()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-//    if (ui->lineEdit_4->text().isEmpty())
-//    {
-//        QMessageBox::warning(this, "Ошибка", "Название для новой папки не может быть пустым");
-//        return;
-//    }
     if (ui->listWidget->count() == 0)
     {
         QMessageBox::warning(this, "Ошибка", "Должен быть хотя бы один файл");
