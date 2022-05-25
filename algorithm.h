@@ -32,9 +32,13 @@ public:
 
     bool clean_word(QString & tmp);
 
-    void fill_vec(QTextStream& in, vector <QString>& key_words_vec);
+    void fill_vec(QFile& in, vector <QString>& key_words_vec);
 
-    void fill_set(QTextStream& in, set<QString>& set_of_keywords);
+    void fill_vecb(const QByteArray& in, vector<QString>& key_words_vec);
+
+    void fill_set(QFile& in, set<QString>& set_of_keywords);
+
+    void fill_setb(const QByteArray& in, set<QString>& set_of_keywords);
 
     void fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lemmatizator& lem);
 

@@ -65,10 +65,10 @@ bool Algorithm::clean_word(QString &tmp) {
     return false;
 }
 
-void Algorithm::fill_vec (QTextStream& in, vector<QString>& key_words_vec) {
-    while (!in.atEnd()) {
-        QString tmp;
-        in >> tmp;
+void Algorithm::fill_vec (QFile& in, vector<QString>& key_words_vec) {
+    QByteArray bytes = in.readAll();
+    QStringList words = QString::fromUtf8(bytes).split(' ');
+    for (QString tmp : words) {
         if (clean_word(tmp)) {
             key_words_vec.push_back(tmp.toLower());
         }
@@ -76,14 +76,32 @@ void Algorithm::fill_vec (QTextStream& in, vector<QString>& key_words_vec) {
 }
 
 
-void Algorithm::fill_set(QTextStream& in, set<QString>& set_of_keywords) {
-    while (!in.atEnd()) {
-        QString tmp;
-        in >> tmp;
+void Algorithm::fill_vecb(const QByteArray& in, vector<QString>& key_words_vec) {
+    QStringList words = QString::fromUtf8(in).split(' ');
+    for (QString tmp : words) {
+        if (clean_word(tmp)) {
+            key_words_vec.push_back(tmp.toLower());
+        }
+    }
+}
+
+
+
+void Algorithm::fill_set(QFile& in, set<QString>& set_of_keywords) {
+    QByteArray bytes = in.readAll();
+    QStringList words = QString::fromUtf8(bytes).split(' ');
+    for (QString tmp : words) {
         if (clean_word(tmp)) {
             //qDebug() << tmp.toLower();
             set_of_keywords.insert(tmp.toLower());
         }
+    }
+}
+
+void Algorithm::fill_setb(const QByteArray& in, set<QString>& set_of_keywords) {
+    QString lemmatized_text = QString::fromUtf8(in);
+    for (QString word : lemmatized_text.split(" ")) {
+        set_of_keywords.insert(word);
     }
 }
 

@@ -25,9 +25,11 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
     }
 }
 
-bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent)
+bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent, bool english)
 {
+
     qDebug() << "<<<=====================>>>";
+    qDebug() << "english: " << english;
     qDebug() << "proccessed files: <" << our_file_info.fileName() << "> and  <" <<  another_file_info.fileName() << ">";
 
     QFile our_file(our_file_info.filePath());
@@ -49,12 +51,22 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
 
     std::set<QString> base_set;
     if (QFileInfo(our_file).suffix() == "txt") {
-        compare.fill_set_lemmatize(our_file, base_set, lem);
+//        if (english) {
+//            compare.fill_set(our_file, base_set);
+//        } else {
+            compare.fill_set_lemmatize(our_file, base_set, lem);
+//        }
     } else if (QFileInfo(our_file).suffix() == "pdf") {
-        compare.fill_set_lemmatize(
-                    global_pdf_extractor.extractb(QFileInfo(our_file)),
-                    base_set,
-                    lem);
+//        if (english) {
+//            compare.fill_setb(
+//                        global_pdf_extractor.extractb(QFileInfo(our_file)),
+//                        base_set);
+//        } else {
+            compare.fill_set_lemmatize(
+                        global_pdf_extractor.extractb(QFileInfo(our_file)),
+                        base_set,
+                        lem);
+//        }
     } else {
         throw;// std::exception("not supported file type");
     }
@@ -65,19 +77,28 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
 
     std::set<QString> compare_set;
     if (QFileInfo(another_file).suffix() == "txt") {
-        compare.fill_set_lemmatize(another_file, compare_set, lem);
+//        if (english) {
+//            compare.fill_set(another_file, compare_set);
+//        } else {
+            compare.fill_set_lemmatize(another_file, compare_set, lem);
+//        }
     } else if (QFileInfo(another_file).suffix() == "pdf") {
-        compare.fill_set_lemmatize(
-                    global_pdf_extractor.extractb(QFileInfo(another_file)),
-                    compare_set,
-                    lem);
+//        if (english) {
+//            compare.fill_setb(
+//                        global_pdf_extractor.extractb(QFileInfo(another_file)),
+//                        compare_set);
+//        } else {
+            compare.fill_set_lemmatize(
+                        global_pdf_extractor.extractb(QFileInfo(another_file)),
+                        compare_set,
+                        lem);
+//        }
     } else {
         throw;// std::exception("not supported file type");
     }
 
     our_file.close();
     another_file.close();
-
 
     qDebug() << "started Jacar alg";
     bool result = compare.Jacar_alg(base_set, compare_set, percent);
