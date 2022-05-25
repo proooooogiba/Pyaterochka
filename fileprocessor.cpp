@@ -25,11 +25,9 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
     }
 }
 
-bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent, bool english)
+bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent)
 {
-
     qDebug() << "<<<=====================>>>";
-    qDebug() << "english: " << english;
     qDebug() << "proccessed files: <" << our_file_info.fileName() << "> and  <" <<  another_file_info.fileName() << ">";
 
     QFile our_file(our_file_info.filePath());
@@ -45,49 +43,26 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
 
     Algorithm compare;
 
-//    std::vector<QString> base_vec;
-//    compare.fill_vec(in_our, base_vec);
-
-    std::set<QString> base_set;
+    std::vector<QString> base_vector;
     if (QFileInfo(our_file).suffix() == "txt") {
-//        if (english) {
-//            compare.fill_set(our_file, base_set);
-//        } else {
-            compare.fill_set_lemmatize(our_file, base_set, lem);
-//        }
+            compare.fill_vector_lemmatize(our_file, base_vector, lem);
     } else if (QFileInfo(our_file).suffix() == "pdf") {
-//        if (english) {
-//            compare.fill_setb(
-//                        global_pdf_extractor.extractb(QFileInfo(our_file)),
-//                        base_set);
-//        } else {
-            compare.fill_set_lemmatize(
+            compare.fill_vector_lemmatize(
                         global_pdf_extractor.extractb(QFileInfo(our_file)),
-                        base_set,
+                        base_vector,
                         lem);
-//        }
     } else {
         throw;
     }
 
-    std::set<QString> compare_set;
+    std::vector<QString> compare_vector;
     if (QFileInfo(another_file).suffix() == "txt") {
-//        if (english) {
-//            compare.fill_set(another_file, compare_set);
-//        } else {
-            compare.fill_set_lemmatize(another_file, compare_set, lem);
-//        }
+            compare.fill_vector_lemmatize(another_file, compare_vector, lem);
     } else if (QFileInfo(another_file).suffix() == "pdf") {
-//        if (english) {
-//            compare.fill_setb(
-//                        global_pdf_extractor.extractb(QFileInfo(another_file)),
-//                        compare_set);
-//        } else {
-            compare.fill_set_lemmatize(
+            compare.fill_vector_lemmatize(
                         global_pdf_extractor.extractb(QFileInfo(another_file)),
-                        compare_set,
+                        compare_vector,
                         lem);
-//        }
     } else {
         throw;
     }
@@ -96,7 +71,8 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     another_file.close();
 
     qDebug() << "started Jacar alg";
-    bool result = compare.Jacar_alg(base_set, compare_set, percent);
+
+    bool result = compare.Shingl_alg(base_vector, compare_vector, percent);
     qDebug() << "end of Jacar alg, result: " << result;
     qDebug() << ">>>=====================<<<\n\n";
 
