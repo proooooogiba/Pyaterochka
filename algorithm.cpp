@@ -140,6 +140,7 @@ void Algorithm::fill_vector_lemmatize(const QString& in, vector<QString>& vector
 void Algorithm::fill_set_lemmatize(const QByteArray& in_bytes, set<QString>& set_of_keywords, Lemmatizator& lem) {
     QString lemmatized_text = lem.lemmatizeb(in_bytes);
     for (QString word : lemmatized_text.split(" ")) {
+//        qDebug() << word;
         set_of_keywords.insert(word);
     }
 }

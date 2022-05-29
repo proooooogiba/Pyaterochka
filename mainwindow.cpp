@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->listWidget, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectFile()));
     connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(slotDeleteItem()));
     connect(ui->horizontalSlider, SIGNAL(valueChanged()), this, SLOT(setNum()));
+
 }
 
 

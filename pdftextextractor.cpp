@@ -70,8 +70,13 @@ QString PdfTextExtractor::extract(const QString path) {
     return extract(QFileInfo(path));
 }
 
-QString PdfTextExtractor::extract(const QFileInfo file) {
-    extractor.setArguments(QStringList() << file.absoluteFilePath());
+QString PdfTextExtractor::extract(const QFileInfo file_) {
+
+    QString file;
+    file = file_.absoluteFilePath();
+
+
+    extractor.setArguments(QStringList() << file);
     extractor.start();
 
     extractor.waitForStarted();

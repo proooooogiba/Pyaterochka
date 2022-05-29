@@ -28,9 +28,10 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
 bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent, bool english)
 {
 
-    qDebug() << "<<<=====================>>>";
-    qDebug() << "english: " << english;
-    qDebug() << "proccessed files: <" << our_file_info.fileName() << "> and  <" <<  another_file_info.fileName() << ">";
+//    qDebug() << "<<<=====================>>>";
+    qDebug() << " ";
+//    qDebug() << "english: " << english;
+    qDebug() << "files: <" << our_file_info.fileName() << "> и <" <<  another_file_info.fileName() << ">";
 
     QFile our_file(our_file_info.filePath());
     QFile another_file(another_file_info.filePath());
@@ -95,10 +96,11 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     our_file.close();
     another_file.close();
 
-    qDebug() << "started Jacar alg";
+//    qDebug() << "started Jacar alg";
     bool result = compare.Jacar_alg(base_set, compare_set, percent);
-    qDebug() << "end of Jacar alg, result: " << result;
-    qDebug() << ">>>=====================<<<\n\n";
+//    qDebug() << "end of Jacar alg, result: " << result;
+//    qDebug() << ">>>=====================<<<\n\n";
+    qDebug() << " ";
 
     return result;
 }
