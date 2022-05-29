@@ -155,10 +155,10 @@ void Algorithm::fill_vector_lemmatize(const QByteArray& in_bytes, vector<QString
 }
 
 //Сходство Жаккара
-
-bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B, float percent) {
-    vector<QString> intersection_vec;
-    vector<QString> union_vec;
+template<typename Type>
+bool Algorithm::Jacar_alg(set<Type>& A, set<Type>& B, float percent) {
+    vector<Type> intersection_vec;
+    vector<Type> union_vec;
 
     std::set_intersection(A.begin(), A.end(),
                           B.begin(), B.end(),
