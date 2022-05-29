@@ -27,8 +27,8 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
 
 bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent)
 {
-    qDebug() << "<<<=====================>>>";
-    qDebug() << "proccessed files: <" << our_file_info.fileName() << "> and  <" <<  another_file_info.fileName() << ">";
+    qDebug() << "{";
+    qDebug() << "\"our\": " << our_file_info.fileName() << ",\n\"another\":" <<  another_file_info.fileName() << ",";
 
     QFile our_file(our_file_info.filePath());
     QFile another_file(another_file_info.filePath());
@@ -76,11 +76,10 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
 //    qDebug() << ">>>=====================<<<\n\n";
 //    qDebug() << " ";
 
-    qDebug() << "started Shingl alg";
-
+//    qDebug() << "started Shingl alg";
     bool result = compare.Shingl_alg(base_vector, compare_vector, percent);
-    qDebug() << "end of Shingl alg, result: " << result;
-    qDebug() << ">>>=====================<<<\n\n";
+//    qDebug() << "end of Shingl alg, result: " << result;
+    qDebug() << "},";
 
 
     return result;
