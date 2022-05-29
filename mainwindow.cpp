@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->listWidget->setItemAlignment(Qt::AlignmentFlag::AlignRight);
     ui->listWidget->sizeHintForColumn(30);
 
-    ui->horizontalSlider->setValue(9);
-    ui->horizontalSlider->setMaximum(100);
+    ui->horizontalSlider->setValue(90);
+    ui->horizontalSlider->setMaximum(1000);
     ui->horizontalSlider->setMinimum(1);
 
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(slotFindFiles()));
@@ -101,11 +101,14 @@ void MainWindow::slotFindFiles()
         }
         if (FileProcessor::compare_files(our_file,
                                          file_list.at(i),
-                                         ui->horizontalSlider->value())) {
+                                         ui->horizontalSlider->value() / 10.0)) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }
+        if (progress.wasCanceled()) {
+            break;
+        }
     }
-    //progress.close();
+
     if (progress.wasCanceled()) {
         QMessageBox::warning(this, "Ошибка", "Что-то пошло не так - процесс был прерван");
     } else if (ui->listWidget->count() == 0) {
@@ -212,6 +215,6 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
     ui->label_10->setNum(value);
-    ui->label_10->setText(QString::number(value) + "%");
+    ui->label_10->setText(QString::number(value/10) + "." + QString::number(value % 10) + "%");
 }
 

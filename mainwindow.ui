@@ -271,7 +271,6 @@ QLineEdit:hover {
 	border-left: 2px solid rgb(164, 203, 255);
 	border-right: 2px solid rgb(164, 203, 255);
 	border-bottom: 2px solid rgb(164, 203, 255);
-	
 	color: rgb(19, 26, 163);
 	background-color: rgb(155, 198, 255);
 }
@@ -291,9 +290,6 @@ QPushButton:pressed {
 	border-left: 2px solid rgb(105, 138, 255);
 	border-right: 2px solid rgb(105, 138, 255);
 	border-bottom: 2px solid rgb(105, 138, 255);
-	
-	
-	
 	background-color: rgb(148, 214, 255);
 
 }</string>
@@ -524,13 +520,13 @@ QPushButton:pressed {
 
 QListWidget:hover {
 	border: none;
-	border-left: 2px solid rgb(158, 0, 0);
-	border-right: 2px solid rgb(158, 0, 0);
-	border-top: 2px solid rgb(158, 0, 0);
-	border-bottom: 2px solid rgb(158, 0, 0);
+	border-top: 4px solid rgb(158, 0, 0);
+	border-left: 4px solid rgb(158, 0, 0);
+	border-right: 4px solid rgb(158, 0, 0);
+	border-bottom: 4px solid rgb(158, 0, 0);
 }
 
-/*QListWidget::item: { border: 1px solid rgb(158, 0, 0); } */</string>
+</string>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
@@ -624,34 +620,6 @@ margin-top: -10px;
 margin-bottom: -7px;
 border-radius: 5px;
 }
-
-/*
-QSlider::handle:horizontal:hover {
-background: white;
-border: 1px solid #444;
-border-radius: 50%;
-width: 13px;
-margin-top: -5px;
-margin-bottom: -3px;
-border-radius: 7px;
-}
-
-QSlider::sub-page:horizontal:disabled {
-background: #bbb;
-border-color: #999;
-}
-
-QSlider::add-page:horizontal:disabled {
-background: #eee;
-border-color: #999;
-}
-
-QSlider::handle:horizontal:disabled {
-background: #eee;
-border: 1px solid #aaa;
-border-radius: 4px;
-}
-*/
 </string>
     </property>
     <property name="orientation">

@@ -25,7 +25,7 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
     }
 }
 
-bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, int percent)
+bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, float percent)
 {
     qDebug() << "{";
     qDebug() << "\"our\": " << our_file_info.fileName() << ",\n\"another\":" <<  another_file_info.fileName() << ",";

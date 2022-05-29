@@ -155,29 +155,34 @@ void Algorithm::fill_vector_lemmatize(const QByteArray& in_bytes, vector<QString
 }
 
 //Сходство Жаккара
-bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B, int percent) {
-    vector <QString> dest1;
-    vector <QString> dest2;
 
-    std::set_intersection(A.begin(), A.end(), B.begin(), B.end(),
-        std::back_inserter(dest1));
-    std::set_union(A.begin(), A.end(),
-        B.begin(), B.end(), std::back_inserter(dest2));
-    if (!dest2.size()) {
+bool Algorithm::Jacar_alg(set<QString>& A, set<QString>& B, float percent) {
+    vector<QString> intersection_vec;
+    vector<QString> union_vec;
+
+    std::set_intersection(A.begin(), A.end(),
+                          B.begin(), B.end(),
+                          std::back_inserter(intersection_vec));
+    std::set_union(A.begin(),A.end(),
+                   B.begin(), B.end(),
+                   std::back_inserter(union_vec));
+
+    if (union_vec.size() == 0) {
         return false;
     }
-    double coefficent = (double)dest1.size() / dest2.size();
 
-    qDebug() << "\"coef\": " << 100 * coefficent * 10 << ",";
-    qDebug() << "\"percent\": " << percent << ",";
-    if (100 * coefficent * 10 > percent) {
-        return true;
+    double coefficent = (double)intersection_vec.size() / union_vec.size();
+
+    qDebug() << "\"coef\": " << 100 * coefficent << ",";
+//    qDebug() << "\"percent\": " << percent << ",";
+    if (100 * coefficent < percent) {
+        return false;
     }
-    return false;
+    return true;
 }
 
 //Сходство Шингла
-bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B, int percent) {
+bool Algorithm::Shingl_alg(vector <QString>& A, vector <QString>& B, float percent) {
     set <QString> set_A;
     set <QString> set_B;
     for (size_t i = 0; i < A.size() - 1; ++i) {

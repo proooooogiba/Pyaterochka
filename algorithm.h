@@ -52,9 +52,9 @@ public:
 
     void fill_vector_lemmatize(const QByteArray& in_bytes, vector<QString>& vector_of_keywords, Lemmatizator& lem);
 
-    bool Jacar_alg(set<QString>& A, set<QString>& B, int percent);
+    bool Jacar_alg(set<QString>& A, set<QString>& B, float percent);
 
-    bool Shingl_alg(vector<QString>& A, vector<QString>& B, int percent);
+    bool Shingl_alg(vector<QString>& A, vector<QString>& B, float percent);
 
 };
 
