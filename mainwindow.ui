@@ -28,7 +28,7 @@
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>80</y>
+      <y>110</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -61,7 +61,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>80</y>
+      <y>110</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -109,7 +109,7 @@ QLineEdit:hover {
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>170</y>
+      <y>200</y>
       <width>31</width>
       <height>31</height>
      </rect>
@@ -142,7 +142,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>170</y>
+      <y>200</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -197,7 +197,7 @@ QLineEdit:hover {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>10</y>
+      <y>40</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -215,7 +215,7 @@ QLineEdit:hover {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>50</y>
+      <y>80</y>
       <width>251</width>
       <height>20</height>
      </rect>
@@ -228,7 +228,7 @@ QLineEdit:hover {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>140</y>
+      <y>170</y>
       <width>221</width>
       <height>20</height>
      </rect>
@@ -694,59 +694,6 @@ border-radius: 4px;
      <string>9</string>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>220</y>
-      <width>131</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QRadioButton" name="radioButton_2">
-       <property name="styleSheet">
-        <string notr="true">QRadioButton {
-	width: 20px;
-    height: 20px;
-	color: rgb(255, 255, 255);
-	
-}
-
-QRadioButton:hover {
-	color: rgb(172, 215, 255);
-}
-
-
-</string>
-       </property>
-       <property name="text">
-        <string>Английский</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radioButton">
-       <property name="styleSheet">
-        <string notr="true">QRadioButton {
-	color: rgb(255, 255, 255);
-}
-
-QRadioButton:hover {
-	color: rgb(172, 215, 255);
-}</string>
-       </property>
-       <property name="text">
-        <string>Русский</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
@@ -790,7 +737,7 @@ QRadioButton:hover {
      <x>0</x>
      <y>0</y>
      <width>727</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

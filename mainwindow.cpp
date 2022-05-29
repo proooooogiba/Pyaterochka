@@ -91,7 +91,6 @@ void MainWindow::slotFindFiles()
     FileProcessor::collectContents(search_directory, file_list);
     QFileInfo our_file(ui->lineEdit_2->text());
 
-
     QProgressDialog progress("Поиск схожих файлов по содержанию", "Прервать поиск", 0,  file_list.size(), this);
     progress.setWindowModality(Qt::WindowModal);
     progress.setWindowTitle("Окно прогресса");
@@ -100,22 +99,21 @@ void MainWindow::slotFindFiles()
         if (file_list.at(i) == our_file) {
             continue;
         }
-
         if (FileProcessor::compare_files(our_file,
                                          file_list.at(i),
-                                         /*ui->progressBar->value()*/ui->horizontalSlider->value(),
-                                         ui->radioButton_2->isChecked())) {
+                                         ui->horizontalSlider->value())) {
             ui->listWidget->addItem(file_list.at(i).filePath());
         }
     }
+    //progress.close();
     if (progress.wasCanceled()) {
         QMessageBox::warning(this, "Ошибка", "Что-то пошло не так - процесс был прерван");
     } else if (ui->listWidget->count() == 0) {
         QMessageBox::information(this, "Уведомление", "Не найдены похожие файлы, попробуйте уменьшить коеффициент схожести");
         ui->label_9->setNum(0);
     } else {
+        progress.close();
         QMessageBox::information(this, "Уведомление", "Алгоритм успешно нашел схожие файлы");
-        //ui->label_9->setNum(ui->listWidget->size());
         ui->label_9->setNum(ui->listWidget->count());
     }
 }
@@ -170,7 +168,6 @@ void MainWindow::slotDeleteItem()
 void MainWindow::AddToFolder(QString file_path, QString file_name)
 {
     QDir dir(file_path);
-    // если такой папки в указанной директории не существует, то создает новую папку с указанным именем
     if (!dir.exists())
     {
         dir.mkpath(".");
