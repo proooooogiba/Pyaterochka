@@ -9,7 +9,7 @@ PdfTextExtractor::PdfTextExtractor() {
     QString program = find_ext();
     if (program == QString{""}) {
         qDebug() << "can not find pdf text expractor =(";
-        throw;// std::exception("pdf text expractor not found");
+        throw;
     } else {
         qDebug() << "pdf text expractor found: " << program;
     }
@@ -93,17 +93,12 @@ QByteArray PdfTextExtractor::extractb(const QString path) {
 }
 
 QByteArray PdfTextExtractor::extractb(const QFileInfo file) {
-//    qDebug() << "in extractb: " << __FILE__ << ":" << __LINE__;
     extractor.setArguments(QStringList() << file.absoluteFilePath());
-//    qDebug() << "starting with args: " << extractor.arguments();
 
     extractor.start();
 
-//    qDebug() << "started: " <<
     extractor.waitForStarted();
-//    qDebug() << "ready read: " <<
     extractor.waitForReadyRead();
-//    qDebug() << "finished: " <<
     extractor.waitForFinished();
 
     QByteArray return_bytes = extractor.readAll();

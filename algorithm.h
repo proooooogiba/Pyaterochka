@@ -15,49 +15,28 @@
 #include <QTextStream>
 #include <QFile>
 
-//#include "unicode/utypes.h"
-//#include "unicode/coll.h"
-//#include "unicode/unistr.h"
-//#include "unicode/ustream.h"
-
 using std::vector;
 using std::set;
 
-
+template<typename Type = QString>
 class Algorithm
 {
 public:
-    bool check_familiar_words(const QString& a);
+    void fillSetLemmatize(QFile& in, set<Type>& set_of_keywords, Lemmatizator<>& lem);
 
-    void delete_symbol(QString& a);
+    void fillSetLemmatize(const Type& in, set<Type>& set_of_keywords, Lemmatizator<>& lem);
 
-    bool clean_word(QString & tmp);
+    void fillSetLemmatize(const QByteArray& in_bytes, set<Type>& set_of_keywords, Lemmatizator<>& lem);
 
-    void fill_vec(QFile& in, vector <QString>& key_words_vec);
+    void fillVectorLemmatize(QFile& in, vector<Type>& vector_of_keywords, Lemmatizator<>& lem);
 
-    void fill_vecb(const QByteArray& in, vector<QString>& key_words_vec);
+    void fillVectorLemmatize(const Type& in, vector<Type>& vector_of_keywords, Lemmatizator<>& lem);
 
-    void fill_set(QFile& in, set<QString>& set_of_keywords);
+    void fillVectorLemmatize(const QByteArray& in_bytes, vector<Type>& vector_of_keywords, Lemmatizator<>& lem);
 
-    void fill_setb(const QByteArray& in, set<QString>& set_of_keywords);
+    bool jacarAlg(set<Type>& A, set<Type>& B, float percent);
 
-    void fill_set_lemmatize(QFile& in, set<QString>& set_of_keywords, Lemmatizator& lem);
-
-    void fill_set_lemmatize(const QString& in, set<QString>& set_of_keywords, Lemmatizator& lem);
-
-    void fill_set_lemmatize(const QByteArray& in_bytes, set<QString>& set_of_keywords, Lemmatizator& lem);
-
-    void fill_vector_lemmatize(QFile& in, vector<QString>& vector_of_keywords, Lemmatizator& lem);
-
-    void fill_vector_lemmatize(const QString& in, vector<QString>& vector_of_keywords, Lemmatizator& lem);
-
-    void fill_vector_lemmatize(const QByteArray& in_bytes, vector<QString>& vector_of_keywords, Lemmatizator& lem);
-
-    template<typename Type>
-    bool Jacar_alg(set<Type>& A, set<Type>& B, float percent);
-
-    bool Shingl_alg(vector<QString>& A, vector<QString>& B, float percent);
-
+    bool shinglAlg(vector<Type>& A, vector<Type>& B, float percent);
 };
 
 #endif // ALGORITHM_H

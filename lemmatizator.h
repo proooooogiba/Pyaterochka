@@ -12,6 +12,7 @@ using json = nlohmann::json;
 
 #define LOGGER qDebug()
 
+template<typename Type = QString>
 class Lemmatizator{
     static const constexpr char* win_lem = "mystem_windows.exe";
     static const constexpr char* linux_lem = "mystem_linux";
@@ -21,14 +22,11 @@ class Lemmatizator{
     static const constexpr char* current_lem = Lemmatizator::win_lem;
 #else
 #if defined(Q_OS_LINUX)
-    staticconst constexpr char* current_lem = Lemmatizator::linux_lem;
+    static const constexpr char* current_lem = Lemmatizator::linux_lem;
 #else
     #error("Unsupported platform!")
 #endif
 #endif
-//   public:
-    //TODO: добавить возможность убирать/добавлять аргументы
-//    QStringList stem_args = { "--format=json", NULL };
     QProcess stem;
     bool initialized = false;
 
@@ -42,15 +40,15 @@ class Lemmatizator{
 
     bool initialize();
 
-    QString lemmatize(const QString& content);
+    Type lemmatizeString(const Type& content);
 
-    QString lemmatizeb(const QByteArray& content);
+    Type lemmatizeBinary(const QByteArray& content_);
 
   private:
 
-    QString parseRecivedContent(const QString& content);
+    Type parseRecivedContent(const Type& content);
 
-    static QString find_lem(const QString where = ".");
+    static Type findLemmatizator(const Type where = ".");
 
     // class UninitializedLem : std::exception {}
 };

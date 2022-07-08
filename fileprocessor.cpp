@@ -3,7 +3,7 @@
 
 #include <QCoreApplication>
 
-extern Lemmatizator global_lem;
+extern Lemmatizator<> global_lem;
 extern PdfTextExtractor global_pdf_extractor;
 
 void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
@@ -25,6 +25,19 @@ void FileProcessor::collectContents(QDir folder, QFileInfoList &files)
     }
 }
 
+void FileProcessor::fill_vector(std::vector<QString> &vector, QFile &file, Lemmatizator<> &lem, Algorithm<QString> &compare) {
+    if (QFileInfo(file).suffix() == "txt") {
+            compare.fillVectorLemmatize(file, vector, lem);
+    } else if (QFileInfo(file).suffix() == "pdf") {
+            compare.fillVectorLemmatize(
+                        global_pdf_extractor.extractb(QFileInfo(file)),
+                        vector,
+                        lem);
+    } else {
+        throw;
+    }
+}
+
 bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_file_info, float percent)
 {
     qDebug() << "{";
@@ -35,52 +48,25 @@ bool FileProcessor::compare_files(QFileInfo our_file_info, QFileInfo another_fil
     our_file.open(QFile::ReadOnly);
     another_file.open(QFile::ReadOnly);
 
-    Lemmatizator& lem = global_lem;
+    Lemmatizator<>& lem = global_lem;
     if (!lem.is_initialized()) {
         bool success = lem.initialize();
         qDebug() << "lematizator started successfully: " << success;
     }
 
-    Algorithm compare;
+    Algorithm<QString> compare;
 
     std::vector<QString> base_vector;
-    if (QFileInfo(our_file).suffix() == "txt") {
-            compare.fill_vector_lemmatize(our_file, base_vector, lem);
-    } else if (QFileInfo(our_file).suffix() == "pdf") {
-            compare.fill_vector_lemmatize(
-                        global_pdf_extractor.extractb(QFileInfo(our_file)),
-                        base_vector,
-                        lem);
-    } else {
-        throw;
-    }
-
     std::vector<QString> compare_vector;
-    if (QFileInfo(another_file).suffix() == "txt") {
-            compare.fill_vector_lemmatize(another_file, compare_vector, lem);
-    } else if (QFileInfo(another_file).suffix() == "pdf") {
-            compare.fill_vector_lemmatize(
-                        global_pdf_extractor.extractb(QFileInfo(another_file)),
-                        compare_vector,
-                        lem);
-    } else {
-        throw;
-    }
+
+    fill_vector(base_vector, our_file, lem, compare);
+    fill_vector(compare_vector, another_file, lem, compare);
 
     our_file.close();
     another_file.close();
 
-//    qDebug() << "started Jacar alg";
-//    bool result = compare.Jacar_alg(base_set, compare_set, percent);
-//    qDebug() << "end of Jacar alg, result: " << result;
-//    qDebug() << ">>>=====================<<<\n\n";
-//    qDebug() << " ";
-
-//    qDebug() << "started Shingl alg";
-    bool result = compare.Shingl_alg(base_vector, compare_vector, percent);
-//    qDebug() << "end of Shingl alg, result: " << result;
+    bool result = compare.shinglAlg(base_vector, compare_vector, percent);
     qDebug() << "},";
-
 
     return result;
 }

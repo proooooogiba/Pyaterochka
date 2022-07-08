@@ -15,7 +15,7 @@ class PdfTextExtractor
     static const constexpr char* current_ext = win_ext;
 #else
 #if defined(Q_OS_LINUX)
-    staticconst constexpr char* current_ext = linux_ext;
+    static const constexpr char* current_ext = linux_ext;
 #else
     #error("Unsupported platform!")
 #endif

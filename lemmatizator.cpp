@@ -8,13 +8,14 @@
 #include <QCoreApplication>
 #include <QDirIterator>
 
-Lemmatizator global_lem;
+Lemmatizator<QString> global_lem;
 
-Lemmatizator::Lemmatizator() {
-    QString program = find_lem();
-    if (program == QString{""}) {
+template <typename Type>
+Lemmatizator<Type>::Lemmatizator() {
+    Type program = findLemmatizator();
+    if (program == Type{""}) {
         qDebug() << "can not find lemmatizator =(";
-        throw; //std::exception("lemmatizator not found");
+        throw;
     } else {
         qDebug() << "lemmatizator found: " << program;
     }
@@ -24,14 +25,16 @@ Lemmatizator::Lemmatizator() {
     qDebug() << "lematizator started successfully: " << success;
 }
 
-Lemmatizator::~Lemmatizator() {
+template <typename Type>
+Lemmatizator<Type>::~Lemmatizator() {
     stem.close();
 }
 
-QString Lemmatizator::find_lem(const QString where) {
+template <typename Type>
+Type Lemmatizator<Type>::findLemmatizator(const Type where) {
     int max_current_processed = 3000;
     int max_parent_processed = 10000;
-    QString program = current_lem;
+    Type program = current_lem;
     QDir current_path(where);
 
     int processed = 0;
@@ -48,7 +51,7 @@ QString Lemmatizator::find_lem(const QString where) {
         }
     }
 
-    if (program != QString(current_lem)) {
+    if (program != Type(current_lem)) {
         return program;
     }
 
@@ -67,18 +70,20 @@ QString Lemmatizator::find_lem(const QString where) {
         }
     }
 
-    if (program != QString(current_lem)) {
+    if (program != Type(current_lem)) {
         return program;
     }
 
     return QString{""};
 }
 
-bool Lemmatizator::is_initialized() {
+template <typename Type>
+bool Lemmatizator<Type>::is_initialized() {
     return initialized;
 }
 
-bool Lemmatizator::initialize() {
+template <typename Type>
+bool Lemmatizator<Type>::initialize() {
     stem.start();
     initialized = stem.waitForStarted();
     if (!initialized) {
@@ -88,27 +93,24 @@ bool Lemmatizator::initialize() {
     return initialized;
 }
 
-QString Lemmatizator::lemmatize(const QString& content) {
-    return lemmatizeb(content.toUtf8());
+template <typename Type>
+Type Lemmatizator<Type>::lemmatizeString(const Type& content) {
+    return lemmatizeBinary(content.toUtf8());
 }
 
-QString Lemmatizator::lemmatizeb(const QByteArray& content_) {
+template <typename Type>
+Type Lemmatizator<Type>::lemmatizeBinary(const QByteArray& content_) {
     if(!initialized) {
-        return QString{};
+        return Type{};
     }
     stem.readAll();
 
     QByteArray content(content_.data(), content_.size());
     content.replace('\n', ' ');
 
-//    LOGGER << "write: " << QString(content);
     stem.write(content);
     stem.write("\r\n");
     stem.waitForBytesWritten();
-
-//    stem.waitForReadyRead();
-
-
     QByteArray return_content;
 
     while (return_content.size() == 0 || return_content.count('[') != return_content.count(']')) {
@@ -122,28 +124,12 @@ QString Lemmatizator::lemmatizeb(const QByteArray& content_) {
         QByteArray bts = stem.readAll();
         return_content.append(bts);
     }
-//    qDebug() << "amount [ = " << return_content.count('[');
-//    qDebug() << "amount ] = " << return_content.count(']');
-
 
     return parseRecivedContent(return_content);
 }
 
-QString Lemmatizator::parseRecivedContent(const QString& content) {
-//    return content;
-//    LOGGER << "start parsing";
-//    LOGGER << "content: " << content;
-
-//    QFile out("D:\\out.txt");
-//    out.open(QFile::WriteOnly | QFile::Text);
-//    QTextStream out_stream(&out);
-
-//    out_stream << "content: " << content << "\n";
-//    out_stream << "content length: " << content.length();
-
-//    out_stream.flush();
-//    out.close();
-
+template <typename Type>
+Type Lemmatizator<Type>::parseRecivedContent(const Type& content) {
     std::string std_content = content.toStdString();
     json json_content;
 
@@ -151,14 +137,11 @@ QString Lemmatizator::parseRecivedContent(const QString& content) {
         json_content = json::parse(std_content);
     } catch (std::exception e) {
         LOGGER << "ERROR WHILE PARSING: " << e.what();
-//        LOGGER << "content: " << std_content.c_str();
     }
 
     std::string return_content{};
-//    LOGGER << "still parsing";
 
     for (auto& analysis_obj : json_content) {
-//        LOGGER << analysis_obj.dump().c_str();
         if (analysis_obj["analysis"].size() != 0) {
             std::string lex = analysis_obj["analysis"][0]["lex"];
             return_content.append(lex);
@@ -169,10 +152,7 @@ QString Lemmatizator::parseRecivedContent(const QString& content) {
         return_content.push_back(' ');
     }
 
-//    if (*return_content.end() == ' ') {
-//        return_content.resize(return_content.size() - 1);
-//    }
-
-//    LOGGER << "end parsing";
-    return QString(return_content.data());
+    return Type(return_content.data());
 }
+
+template class Lemmatizator<QString>;
